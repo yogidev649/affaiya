@@ -4,772 +4,996 @@
     <link rel="icon" type="image/png" href="logoaffaiya.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Affaiya — Official Online Store</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Affaiya - Sandal Wanita Modern & Elegan</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#fdf8f6',
-                            100: '#fbe8e6',
-                            200: '#f5d3cf',
-                            600: '#c5705d',
-                            700: '#a85744',
-                            800: '#8c4535',
-                            900: '#73382b',
+                        affaiya: {
+                            50: '#FAF6F0',
+                            100: '#F4ECE1',
+                            200: '#E6D5C3',
+                            300: '#D2B48C',
+                            400: '#B8860B',
+                            500: '#A0522D',
+                            600: '#8B5A2B',
+                            700: '#6F421B',
+                            800: '#523013',
+                            900: '#361E0A',
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
                     }
                 }
             }
         }
     </script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body {
+            background-color: #FDFBF7;
+            color: #361E0A;
+            font-family: 'Poppins', sans-serif;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .bg-glass {
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+        }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800 antialiased min-h-screen flex flex-col justify-between selection:bg-brand-200 selection:text-brand-900">
+<body class="min-h-screen flex flex-col justify-between relative selection:bg-affaiya-300 selection:text-affaiya-900">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-stone-900 text-stone-200 text-xs py-2 px-4 text-center tracking-wide">
-        <span class="font-medium text-brand-200">Koleksi Terbaru Affaiya</span> sudah rilis! Gunakan kode kupon <span class="bg-brand-700 px-1.5 py-0.5 rounded text-white font-bold">AFFAIYA10</span> untuk diskon 10%.
-    </div>
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed top-20 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm transition-all">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchPage('beranda')">
-                <div class="w-10 h-10 rounded-full bg-brand-700 text-white flex items-center justify-center text-xl font-bold tracking-tighter shadow-md">
-                    <img src="logoaffaiya.png" alt="Logo Perusahaan" >
-                </div>
-                <div>
-                    <span class="text-2xl font-bold tracking-wider text-stone-900">AFFAIYA</span>
-                    <span class="block text-[10px] tracking-widest text-stone-500 uppercase font-medium">Official Store</span>
-                </div>
-            </div>
-
-            <!-- Desktop Navigation Menu -->
-            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm text-stone-600">
-                <button onclick="switchPage('beranda')" class="nav-link hover:text-brand-700 transition-colors py-2 border-b-2 border-transparent" data-page="beranda">Beranda</button>
-                <button onclick="switchPage('koleksi')" class="nav-link hover:text-brand-700 transition-colors py-2 border-b-2 border-transparent" data-page="koleksi">Koleksi</button>
-                <button onclick="switchPage('tentang')" class="nav-link hover:text-brand-700 transition-colors py-2 border-b-2 border-transparent" data-page="tentang">Tentang Kami</button>
-                <button onclick="switchPage('syarat')" class="nav-link hover:text-brand-700 transition-colors py-2 border-b-2 border-transparent" data-page="syarat">Syarat & Ketentuan</button>
-                <button onclick="switchPage('hubungi')" class="nav-link hover:text-brand-700 transition-colors py-2 border-b-2 border-transparent" data-page="hubungi">Hubungi Kami</button>
-            </nav>
-
-            <!-- Right Actions (Cart & Auth) -->
-            <div class="flex items-center space-x-4">
-                <!-- Cart Button -->
-                <button onclick="openCartModal()" class="relative p-2.5 text-stone-700 hover:text-brand-700 hover:bg-stone-100 rounded-full transition-all focus:outline-none" aria-label="Keranjang Belanja">
-                    <i class="fa-solid fa-bag-shopping text-lg"></i>
-                    <span id="cart-badge" class="absolute top-1 right-1 bg-brand-700 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow">0</span>
-                </button>
-
-                <!-- Auth State UI -->
-                <div id="auth-nav-container" class="flex items-center space-x-2">
-                    <!-- Populated dynamically via JS -->
+    <header class="sticky top-0 z-40 bg-glass border-b border-affaiya-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Logo -->
+                <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('beranda')">
+                    <img src="logoaffaiya.png" alt="Logo Perusahaan" width="70" height="100">
+		    <span class="text-xs text-affaiya-500 uppercase tracking-widest hidden sm:inline border-l border-affaiya-300 pl-2">Footwear</span>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-stone-700 hover:text-brand-700 rounded-lg focus:outline-none">
-                    <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl"></i>
-                </button>
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <button onclick="navigateTo('beranda')" class="nav-btn text-affaiya-800 hover:text-affaiya-600 font-medium transition py-1 border-b-2 border-transparent" data-page="beranda">Beranda</button>
+                    <button onclick="navigateTo('koleksi')" class="nav-btn text-affaiya-800 hover:text-affaiya-600 font-medium transition py-1 border-b-2 border-transparent" data-page="koleksi">Koleksi</button>
+                    <button onclick="navigateTo('profil')" class="nav-btn text-affaiya-800 hover:text-affaiya-600 font-medium transition py-1 border-b-2 border-transparent" data-page="profil">Profil</button>
+                    <button onclick="navigateTo('syarat')" class="nav-btn text-affaiya-800 hover:text-affaiya-600 font-medium transition py-1 border-b-2 border-transparent" data-page="syarat">Syarat & Ketentuan</button>
+                    <button onclick="navigateTo('hubungi')" class="nav-btn text-affaiya-800 hover:text-affaiya-600 font-medium transition py-1 border-b-2 border-transparent" data-page="hubungi">Hubungi</button>
+                </nav>
+
+                <!-- Actions Right Side -->
+                <div class="flex items-center space-x-4">
+                    <!-- User Profile/Auth Button -->
+                    <div id="userMenuArea" class="relative">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Cart Drawer Button -->
+                    <button onclick="toggleCartDrawer()" class="relative p-2 text-affaiya-800 hover:text-affaiya-600 focus:outline-none transition" aria-label="Troli Belanja">
+                        <i class="fa-solid fa-bag-shopping text-2xl"></i>
+                        <span id="cartBadge" class="absolute -top-1 -right-1 bg-affaiya-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white scale-0 transition-transform duration-300">0</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-affaiya-800 focus:outline-none">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-stone-200 px-4 pt-2 pb-6 space-y-3 shadow-lg">
-            <button onclick="switchPage('beranda'); toggleMobileMenu();" class="block w-full text-left py-2 font-medium text-stone-700 hover:text-brand-700 border-b border-stone-100">Beranda</button>
-            <button onclick="switchPage('koleksi'); toggleMobileMenu();" class="block w-full text-left py-2 font-medium text-stone-700 hover:text-brand-700 border-b border-stone-100">Koleksi</button>
-            <button onclick="switchPage('tentang'); toggleMobileMenu();" class="block w-full text-left py-2 font-medium text-stone-700 hover:text-brand-700 border-b border-stone-100">Tentang Kami</button>
-            <button onclick="switchPage('syarat'); toggleMobileMenu();" class="block w-full text-left py-2 font-medium text-stone-700 hover:text-brand-700 border-b border-stone-100">Syarat & Ketentuan</button>
-            <button onclick="switchPage('hubungi'); toggleMobileMenu();" class="block w-full text-left py-2 font-medium text-stone-700 hover:text-brand-700">Hubungi Kami</button>
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-affaiya-50 border-b border-affaiya-200 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="navigateTo('beranda'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg text-affaiya-800 hover:bg-affaiya-200 font-medium">Beranda</button>
+            <button onclick="navigateTo('koleksi'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg text-affaiya-800 hover:bg-affaiya-200 font-medium">Koleksi Produk</button>
+            <button onclick="navigateTo('profil'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg text-affaiya-800 hover:bg-affaiya-200 font-medium">Profil Brand</button>
+            <button onclick="navigateTo('syarat'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg text-affaiya-800 hover:bg-affaiya-200 font-medium">Syarat & Ketentuan</button>
+            <button onclick="navigateTo('hubungi'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-lg text-affaiya-800 hover:bg-affaiya-200 font-medium">Hubungi Kami</button>
         </div>
     </header>
 
     <!-- Main Content Container -->
     <main class="flex-grow">
 
-        <!-- 1. BERANDA PAGE -->
-        <section id="page-beranda" class="page-view">
-            <!-- Modern Slideshow Banner -->
-            <div class="relative bg-stone-900 text-white overflow-hidden h-[480px] sm:h-[560px]">
-                <div id="slideshow-container" class="relative w-full h-full">
+        <!-- ==================== PAGE: BERANDA ==================== -->
+        <section id="page-beranda" class="page-content">
+            <!-- Hero Carousel -->
+            <div class="relative w-full overflow-hidden bg-affaiya-100">
+                <div id="heroCarouselSlides" class="flex transition-transform duration-700 ease-out">
                     <!-- Slide 1 -->
-                    <div class="slide absolute inset-0 transition-opacity duration-1000 opacity-100 flex items-center">
-                        <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-transparent z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600&auto=format&fit=crop" alt="Banner 1" class="absolute inset-0 w-full h-full object-cover object-center transform scale-105 transition-transform duration-10000">
-                        <div class="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 w-full">
-                            <span class="inline-block bg-brand-700 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4">Koleksi Eksklusif 2026</span>
-                            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4 leading-tight">Gaya Elegan & Modern<br>Bersama <span class="text-brand-200">Affaiya</span></h1>
-                            <p class="text-stone-300 text-base sm:text-lg max-w-xl mb-8 font-light">Temukan pilihan busana dan aksesori lifestyle premium yang dirancang khusus untuk kenyamanan dan kepercayaan diri Anda.</p>
-                            <div class="flex flex-wrap gap-4">
-                                <button onclick="switchPage('koleksi')" class="bg-brand-700 hover:bg-brand-800 text-white font-medium px-8 py-3.5 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">Jelajahi Koleksi</button>
-                                <button onclick="switchPage('tentang')" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-medium px-8 py-3.5 rounded-xl border border-white/20 transition-all">Tentang Kami</button>
-                            </div>
+                    <div class="w-full flex-shrink-0 relative min-h-[450px] lg:min-h-[580px] flex items-center">
+                        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover object-center opacity-85" alt="Affaiya Collection 1">
+                        <div class="absolute inset-0 bg-gradient-to-r from-affaiya-900/80 via-affaiya-900/40 to-transparent"></div>
+                        <div class="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 text-white max-w-xl">
+                            <span class="text-affaiya-300 font-medium tracking-widest text-sm uppercase">Koleksi Terbaru 2026</span>
+                            <h1 class="font-serif text-4xl lg:text-6xl font-bold my-4 leading-tight">Langkah Elegan Setiap Hari</h1>
+                            <p class="text-affaiya-100 mb-8 text-sm sm:text-base">Didesain khusus untuk wanita modern yang mengutamakan kenyamanan ekstra tanpa mengorbankan estetika.</p>
+                            <button onclick="navigateTo('koleksi')" class="bg-affaiya-600 hover:bg-affaiya-700 text-white font-medium px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition flex items-center gap-2">
+                                Jelajahi Koleksi <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
                         </div>
                     </div>
                     <!-- Slide 2 -->
-                    <div class="slide absolute inset-0 transition-opacity duration-1000 opacity-0 flex items-center">
-                        <div class="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-transparent z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1600&auto=format&fit=crop" alt="Banner 2" class="absolute inset-0 w-full h-full object-cover object-center">
-                        <div class="relative z-20 max-w-7xl mx-auto px-6 sm:px-8 w-full">
-                            <span class="inline-block bg-brand-700 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4">Promo Spesial</span>
-                            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-4 leading-tight">Diskon 10%<br>Dengan Kupon <span class="text-brand-200">AFFAIYA10</span></h1>
-                            <p class="text-stone-300 text-base sm:text-lg max-w-xl mb-8 font-light">Belanja produk favorit Anda sekarang dan nikmati penawaran terbaik langsung dari genggaman tangan Anda.</p>
-                            <button onclick="switchPage('koleksi')" class="bg-brand-700 hover:bg-brand-800 text-white font-medium px-8 py-3.5 rounded-xl shadow-lg transition-all">Belanja Sekarang</button>
+                    <div class="w-full flex-shrink-0 relative min-h-[450px] lg:min-h-[580px] flex items-center">
+                        <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover object-center opacity-85" alt="Affaiya Collection 2">
+                        <div class="absolute inset-0 bg-gradient-to-r from-affaiya-900/80 via-affaiya-900/40 to-transparent"></div>
+                        <div class="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 text-white max-w-xl">
+                            <span class="text-affaiya-300 font-medium tracking-widest text-sm uppercase">Sentuhan Coklat Premium</span>
+                            <h1 class="font-serif text-4xl lg:text-6xl font-bold my-4 leading-tight">Sandal Kulit Sintetis Soft Touch</h1>
+                            <p class="text-affaiya-100 mb-8 text-sm sm:text-base">Insole empuk berlapis memory foam, ringan dipakai seharian untuk acara formal maupun santai.</p>
+                            <button onclick="navigateTo('koleksi')" class="bg-affaiya-300 hover:bg-affaiya-400 text-affaiya-900 font-semibold px-8 py-3.5 rounded-full shadow-lg transition flex items-center gap-2">
+                                Beli Sekarang <i class="fa-solid fa-bag-shopping text-xs"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <!-- Slideshow Navigation Dots -->
-                <div class="absolute bottom-6 left-0 right-0 z-30 flex justify-center space-x-3">
-                    <button onclick="currentSlide(0)" class="slide-dot w-3 h-3 rounded-full bg-white transition-all"></button>
-                    <button onclick="currentSlide(1)" class="slide-dot w-3 h-3 rounded-full bg-white/50 transition-all"></button>
-                </div>
+
+                <!-- Carousel Controls -->
+                <button onclick="prevHeroSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/30 backdrop-blur-md text-white hover:bg-white/60 flex items-center justify-center transition">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button onclick="nextHeroSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/30 backdrop-blur-md text-white hover:bg-white/60 flex items-center justify-center transition">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
             </div>
 
-            <!-- Features Highlights -->
-            <div class="bg-white border-b border-stone-200 py-12">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="flex items-start space-x-4 p-6 rounded-2xl bg-stone-50 border border-stone-100">
-                            <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center text-xl flex-shrink-0">
-                                <i class="fa-solid fa-truck-fast"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-stone-900 mb-1">Pengiriman Cepat & Aman</h3>
-                                <p class="text-sm text-stone-600">Dikirim langsung dari gudang utama dengan garansi pengemasan aman dan rapi.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4 p-6 rounded-2xl bg-stone-50 border border-stone-100">
-                            <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center text-xl flex-shrink-0">
-                                <i class="fa-solid fa-shield-halved"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-stone-900 mb-1">Kualitas Terjamin</h3>
-                                <p class="text-sm text-stone-600">Setiap produk melewati quality control ketat demi kepuasan pelanggan Affaiya.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4 p-6 rounded-2xl bg-stone-50 border border-stone-100">
-                            <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center text-xl flex-shrink-0">
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-stone-900 mb-1">Pemesanan Mudah via WhatsApp</h3>
-                                <p class="text-sm text-stone-600">Checkout praktis langsung terhubung dengan admin WhatsApp toko kami.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- All Products Section on Home -->
+            <!-- Featured Products Slideshow / Carousel -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                <div class="flex justify-between items-end mb-8">
                     <div>
-                        <span class="text-brand-700 font-semibold text-sm uppercase tracking-wider">Katalog Terbaru</span>
-                        <h2 class="text-3xl font-extrabold text-stone-900 mt-1">Semua Produk Affaiya</h2>
+                        <span class="text-affaiya-500 font-semibold uppercase text-xs tracking-wider">Katalog Produk</span>
+                        <h2 class="font-serif text-3xl font-bold text-affaiya-800">Produk Unggulan Affaiya</h2>
                     </div>
-                    <button onclick="switchPage('koleksi')" class="mt-4 md:mt-0 text-brand-700 hover:text-brand-800 font-semibold flex items-center space-x-2 text-sm group">
-                        <span>Lihat Semua Koleksi</span>
-                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
-                    </button>
-                </div>
-
-                <!-- Product Grid (Home) -->
-                <div id="home-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Populated via JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. KOLEKSI PAGE -->
-        <section id="page-koleksi" class="page-view hidden py-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Header -->
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <span class="text-brand-700 font-semibold text-sm uppercase tracking-wider">Eksplorasi Katalog</span>
-                    <h1 class="text-3xl sm:text-4xl font-extrabold text-stone-900 mt-2 mb-4">Koleksi Lengkap Affaiya</h1>
-                    <p class="text-stone-600">Temukan gaya terbaikmu dari berbagai kategori produk fashion dan lifestyle berkualitas tinggi.</p>
-                </div>
-
-                <!-- Filters & Search Bar -->
-                <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-stone-200 mb-10 flex flex-col md:flex-row gap-4 items-center justify-between">
-                    <div class="relative w-full md:w-96">
-                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-stone-400"></i>
-                        <input type="text" id="search-input" oninput="filterProducts()" placeholder="Cari nama produk..." class="w-full pl-11 pr-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700 focus:bg-white transition-all">
-                    </div>
-                    <div id="category-filter-chips" class="flex flex-wrap gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
-                        <button onclick="setCategoryFilter('Semua')" class="cat-chip px-5 py-2 rounded-xl text-sm font-semibold bg-brand-700 text-white transition-all shadow-sm">Semua</button>
-                        <!-- Dynamic categories added via JS -->
-                    </div>
-                </div>
-
-                <!-- Product Grid (Koleksi) -->
-                <div id="koleksi-product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Populated via JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. TENTANG KAMI PAGE -->
-        <section id="page-tentang" class="page-view hidden py-16">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-white rounded-3xl shadow-sm border border-stone-200 overflow-hidden">
-                    <div class="grid grid-cols-1 md:grid-cols-2">
-                        <div class="relative min-h-[300px] md:min-h-full">
-                            <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1000&auto=format&fit=crop" alt="Tentang Affaiya" class="absolute inset-0 w-full h-full object-cover">
-                        </div>
-                        <div class="p-8 sm:p-12 flex flex-col justify-center">
-                            <span class="text-brand-700 font-semibold text-sm uppercase tracking-wider mb-2">Tentang Brand</span>
-                            <h1 class="text-3xl font-extrabold text-stone-900 mb-6">Mengenal Lebih Dekat <span class="text-brand-700">Affaiya</span></h1>
-                            <p class="text-stone-600 mb-4 leading-relaxed text-sm sm:text-base">
-                                Affaiya hadir sebagai brand fashion dan lifestyle modern yang mendedikasikan diri untuk menghadirkan koleksi busana penuh gaya, elegan, dan fungsional bagi masyarakat urban Indonesia.
-                            </p>
-                            <p class="text-stone-600 mb-6 leading-relaxed text-sm sm:text-base">
-                                Didirikan dengan komitmen kuat pada kualitas material dan ketelitian detail jahitan, setiap produk Affaiya dirancang untuk menemani setiap momen spesial Anda dengan penuh percaya diri dan kenyamanan maksimal.
-                            </p>
-                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-stone-100">
-                                <div>
-                                    <h4 class="font-bold text-stone-900 text-lg">100%</h4>
-                                    <p class="text-xs text-stone-500">Kualitas Premium</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-stone-900 text-lg">10.000+</h4>
-                                    <p class="text-xs text-stone-500">Pelanggan Setia</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. SYARAT & KETENTUAN PAGE -->
-        <section id="page-syarat" class="page-view hidden py-16">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-white rounded-3xl shadow-sm border border-stone-200 p-8 sm:p-12">
-                    <span class="text-brand-700 font-semibold text-sm uppercase tracking-wider block mb-2">Regulasi Toko</span>
-                    <h1 class="text-3xl font-extrabold text-stone-900 mb-8">Syarat & Ketentuan Belanja</h1>
-                    
-                    <div class="space-y-6 text-stone-600 text-sm sm:text-base leading-relaxed">
-                        <div class="border-b border-stone-100 pb-6">
-                            <h3 class="font-bold text-stone-900 text-lg mb-2 flex items-center"><span class="w-7 h-7 rounded-lg bg-brand-100 text-brand-700 inline-flex items-center justify-center mr-3 text-sm">1</span> Pendaftaran Akun</h3>
-                            <p>Pengguna wajib mendaftarkan akun atau masuk terlebih dahulu sebelum dapat melakukan proses pemesanan atau checkout produk di Affaiya. Akun admin dikelola secara khusus dan tidak dapat didaftarkan melalui form registrasi umum.</p>
-                        </div>
-                        <div class="border-b border-stone-100 pb-6">
-                            <h3 class="font-bold text-stone-900 text-lg mb-2 flex items-center"><span class="w-7 h-7 rounded-lg bg-brand-100 text-brand-700 inline-flex items-center justify-center mr-3 text-sm">2</span> Pemesanan & Checkout WhatsApp</h3>
-                            <p>Seluruh transaksi checkout dilakukan secara langsung melalui WhatsApp resmi toko Affaiya. Sistem akan merangkum produk, jumlah, total harga, serta kode kupon yang digunakan ke dalam format pesan otomatis.</p>
-                        </div>
-                        <div class="border-b border-stone-100 pb-6">
-                            <h3 class="font-bold text-stone-900 text-lg mb-2 flex items-center"><span class="w-7 h-7 rounded-lg bg-brand-100 text-brand-700 inline-flex items-center justify-center mr-3 text-sm">3</span> Penggunaan Kupon Diskon</h3>
-                            <p>Kupon diskon yang valid (seperti <code class="bg-stone-100 text-brand-700 px-1.5 py-0.5 rounded font-mono">AFFAIYA10</code>) dapat dimasukkan saat keranjang belanja untuk mendapatkan potongan harga sesuai ketentuan promosi yang sedang berlaku.</p>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-stone-900 text-lg mb-2 flex items-center"><span class="w-7 h-7 rounded-lg bg-brand-100 text-brand-700 inline-flex items-center justify-center mr-3 text-sm">4</span> Kebijakan Pengembalian</h3>
-                            <p>Produk yang diterima dapat diajukan penukaran atau pengembalian apabila terdapat cacat produksi maksimal 2 hari setelah barang diterima dengan menyertakan video unboxing.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. HUBUNGI KAMI PAGE -->
-        <section id="page-hubungi" class="page-view hidden py-16">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="bg-white rounded-3xl shadow-sm border border-stone-200 p-8 sm:p-12">
-                    <div class="text-center max-w-xl mx-auto mb-10">
-                        <span class="text-brand-700 font-semibold text-sm uppercase tracking-wider block mb-2">Layanan Pelanggan</span>
-                        <h1 class="text-3xl font-extrabold text-stone-900 mb-4">Hubungi Affaiya</h1>
-                        <p class="text-stone-600">Punya pertanyaan seputar produk, pesanan, atau kolaborasi? Jangan ragu untuk menghubungi tim kami melalui WhatsApp resmi.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div class="bg-stone-50 border border-stone-200 p-6 rounded-2xl flex items-center space-x-4">
-                            <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl flex-shrink-0">
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-stone-900">WhatsApp Official</h4>
-                                <p class="text-sm text-stone-600 mb-2">+62 812-3456-7890</p>
-                                <span class="inline-block text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-0.5 rounded-full">Online Setiap Hari</span>
-                            </div>
-                        </div>
-                        <div class="bg-stone-50 border border-stone-200 p-6 rounded-2xl flex items-center space-x-4">
-                            <div class="w-14 h-14 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-2xl flex-shrink-0">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-stone-900">Email Resmi</h4>
-                                <p class="text-sm text-stone-600 mb-2">support@affaiya.com</p>
-                                <span class="inline-block text-xs bg-brand-100 text-brand-800 font-semibold px-2 py-0.5 rounded-full">Respon Cepat</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <a href="https://wa.me/6281234567890?text=Halo%20Affaiya,%20saya%20ingin%20bertanya%20mengenai%20produk%20toko." target="_blank" class="inline-flex items-center space-x-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-8 py-4 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5">
-                            <i class="fa-brands fa-whatsapp text-xl"></i>
-                            <span>Chat Langsung via WhatsApp</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. ADMIN DASHBOARD PAGE -->
-        <section id="page-admin-dashboard" class="page-view hidden py-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Admin Header -->
-                <div class="flex flex-col md:flex-row md:items-center justify-between bg-white p-6 rounded-2xl shadow-sm border border-stone-200 mb-8">
-                    <div>
-                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Panel Administrator</span>
-                        <h1 class="text-2xl font-extrabold text-stone-900 mt-2">Manajemen Toko Affaiya</h1>
-                    </div>
-                    <div id="admin-header-action" class="mt-4 md:mt-0 flex items-center space-x-3">
-                        <button onclick="openProductModal('add')" id="btn-add-product" class="bg-brand-700 hover:bg-brand-800 text-white font-medium px-4 py-2.5 rounded-xl text-sm shadow transition-all flex items-center space-x-2">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>Tambah Produk</span>
+                    <div class="flex gap-2">
+                        <button onclick="scrollProductCarousel('left')" class="w-10 h-10 rounded-full border border-affaiya-300 text-affaiya-700 hover:bg-affaiya-600 hover:text-white transition flex items-center justify-center">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <button onclick="scrollProductCarousel('right')" class="w-10 h-10 rounded-full border border-affaiya-300 text-affaiya-700 hover:bg-affaiya-600 hover:text-white transition flex items-center justify-center">
+                            <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Admin Tabs -->
-                <div class="flex space-x-4 border-b border-stone-200 mb-8">
-                    <button onclick="switchAdminTab('products')" id="admin-tab-products" class="admin-tab pb-3 font-bold text-brand-700 border-b-2 border-brand-700 text-sm">CRUD Produk</button>
-                    <button onclick="switchAdminTab('users')" id="admin-tab-users" class="admin-tab pb-3 font-medium text-stone-500 hover:text-stone-800 text-sm">Manajemen Akun</button>
+                <!-- Product Carousel -->
+                <div id="homeProductCarousel" class="flex gap-6 overflow-x-auto scroll-smooth hide-scrollbar pb-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Social Media Stats Section -->
+            <div class="bg-affaiya-100 py-12 border-y border-affaiya-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-xl mx-auto mb-8">
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-affaiya-800">Komunitas Media Sosial Kami</h2>
+                        <p class="text-affaiya-700 text-sm mt-1">Bergabung bersama ribuan wanita elegan lainnya di seluruh Indonesia.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                        <!-- Instagram Card -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-affaiya-200 flex items-center justify-between hover:shadow-md transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-yellow-400 via-rose-500 to-purple-600 flex items-center justify-center text-white text-2xl">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-affaiya-900">@affaiya.official</h3>
+                                    <p class="text-xs text-affaiya-500">Instagram Official</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-2xl font-bold text-affaiya-600">128.5K</span>
+                                <span class="text-xs text-green-600 font-medium"><i class="fa-solid fa-user-check"></i> Pengikut</span>
+                            </div>
+                        </div>
+                        <!-- Facebook Card -->
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-affaiya-200 flex items-center justify-between hover:shadow-md transition">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-affaiya-900">Affaiya Shoes</h3>
+                                    <p class="text-xs text-affaiya-500">Facebook Page</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="block text-2xl font-bold text-affaiya-600">84.2K</span>
+                                <span class="text-xs text-green-600 font-medium"><i class="fa-solid fa-thumbs-up"></i> Suka & Pengikut</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features / Keunggulan Affaiya -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-affaiya-500 font-semibold uppercase text-xs tracking-wider">Mengapa Memilih Kami</span>
+                    <h2 class="font-serif text-3xl font-bold text-affaiya-800 mt-1">Keunggulan Utama Affaiya</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-2xl border border-affaiya-200 text-center hover:-translate-y-1 transition duration-300">
+                        <div class="w-16 h-16 bg-affaiya-100 rounded-full flex items-center justify-center mx-auto mb-4 text-affaiya-600 text-2xl">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2 text-affaiya-900">Bahan Premium</h3>
+                        <p class="text-sm text-affaiya-700">Kulit sintetis tebal bernapas yang awet, elastis, dan tidak mudah mengelupas.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-affaiya-200 text-center hover:-translate-y-1 transition duration-300">
+                        <div class="w-16 h-16 bg-affaiya-100 rounded-full flex items-center justify-center mx-auto mb-4 text-affaiya-600 text-2xl">
+                            <i class="fa-solid fa-[#FE1202] fa-feather"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2 text-affaiya-900">Nyaman & Ringan</h3>
+                        <p class="text-sm text-affaiya-700">Insole empuk dengan bantalan khusus anti pegal walau dipakai melangkah seharian.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-affaiya-200 text-center hover:-translate-y-1 transition duration-300">
+                        <div class="w-16 h-16 bg-affaiya-100 rounded-full flex items-center justify-center mx-auto mb-4 text-affaiya-600 text-2xl">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2 text-affaiya-900">Garansi Tukar Size</h3>
+                        <p class="text-sm text-affaiya-700">Ukuran kekecilan atau kebesaran? Kami berikan jaminan tukar ukuran tanpa ribet.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-affaiya-200 text-center hover:-translate-y-1 transition duration-300">
+                        <div class="w-16 h-16 bg-affaiya-100 rounded-full flex items-center justify-center mx-auto mb-4 text-affaiya-600 text-2xl">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h3 class="font-bold text-lg mb-2 text-affaiya-900">Pengiriman Cepat</h3>
+                        <p class="text-sm text-affaiya-700">Pengemasan aman dan rapi, langsung dikirim di hari yang sama untuk pesanan Anda.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials Slider -->
+            <div class="bg-affaiya-50 py-16 border-t border-affaiya-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-xl mx-auto mb-10">
+                        <span class="text-affaiya-500 font-semibold uppercase text-xs tracking-wider">Ulasan Pelanggan</span>
+                        <h2 class="font-serif text-3xl font-bold text-affaiya-800 mt-1">Kata Mereka Tentang Affaiya</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-2xl border border-affaiya-200 shadow-sm">
+                            <div class="flex text-yellow-400 mb-3 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-sm text-affaiya-800 italic mb-4">"Sandalnya sangat empuk banget, warna coklatnya sangat mahal kelihatannya! Dipakai jalan-jalan di mall seharian kaki nggak sakit sama sekali."</p>
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" class="w-10 h-10 rounded-full object-cover" alt="User Avatar">
+                                <div>
+                                    <h4 class="font-bold text-sm text-affaiya-900">Anisa Rahmawati</h4>
+                                    <span class="text-xs text-affaiya-500">Jakarta Selatan</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-affaiya-200 shadow-sm">
+                            <div class="flex text-yellow-400 mb-3 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-sm text-affaiya-800 italic mb-4">"Ukuran 38 pas banget di kaki. Pengiriman cepat dan dusnya rapi. Pokoknya recommended banget buat yang nyari sandal kekinian."</p>
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop" class="w-10 h-10 rounded-full object-cover" alt="User Avatar">
+                                <div>
+                                    <h4 class="font-bold text-sm text-affaiya-900">Dian Sastro</h4>
+                                    <span class="text-xs text-affaiya-500">Bandung</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-affaiya-200 shadow-sm">
+                            <div class="flex text-yellow-400 mb-3 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-sm text-affaiya-800 italic mb-4">"Beli buat kado ibu, ibuku suka banget! Solnya tebal tapi ringan dan nggak licin. Mau order model lainnya lagi nanti."</p>
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" class="w-10 h-10 rounded-full object-cover" alt="User Avatar">
+                                <div>
+                                    <h4 class="font-bold text-sm text-affaiya-900">Maya Putri</h4>
+                                    <span class="text-xs text-affaiya-500">Surabaya</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE: KOLEKSI ==================== -->
+        <section id="page-koleksi" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <!-- Page Title -->
+                <div class="mb-8">
+                    <h1 class="font-serif text-3xl sm:text-4xl font-bold text-affaiya-800">Koleksi Sandal Affaiya</h1>
+                    <p class="text-affaiya-600 text-sm mt-1">Temukan pasang sandal favorit Anda dengan kualitas terbaik.</p>
                 </div>
 
-                <!-- Tab 1: CRUD Produk Content -->
-                <div id="admin-content-products">
-                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden">
+                <!-- Filters & Search Bar -->
+                <div class="bg-white p-4 rounded-2xl border border-affaiya-200 mb-8 flex flex-col md:flex-row gap-4 justify-between items-center shadow-sm">
+                    <!-- Search Input -->
+                    <div class="relative w-full md:w-80">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-affaiya-400"></i>
+                        <input type="text" id="searchInput" oninput="filterProducts()" placeholder="Cari sandal favorit Anda..." class="w-full pl-10 pr-4 py-2 bg-affaiya-50 border border-affaiya-200 rounded-xl text-sm focus:outline-none focus:border-affaiya-600">
+                    </div>
+
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-wrap gap-2 w-full md:w-auto overflow-x-auto pb-1">
+                        <button onclick="setCategoryFilter('all')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-medium transition bg-affaiya-600 text-white" data-cat="all">Semua</button>
+                        <button onclick="setCategoryFilter('Sandal Slop')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-medium bg-affaiya-50 text-affaiya-800 hover:bg-affaiya-200 transition" data-cat="Sandal Slop">Slop</button>
+                        <button onclick="setCategoryFilter('Sandal Tali / Strap')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-medium bg-affaiya-50 text-affaiya-800 hover:bg-affaiya-200 transition" data-cat="Sandal Tali / Strap">Tali & Strap</button>
+                        <button onclick="setCategoryFilter('High Heels Sandal')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-medium bg-affaiya-50 text-affaiya-800 hover:bg-affaiya-200 transition" data-cat="High Heels Sandal">Heels Sandal</button>
+                    </div>
+
+                    <!-- Sorting Select -->
+                    <div class="w-full md:w-auto">
+                        <select id="sortSelect" onchange="filterProducts()" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-3 py-2 text-xs text-affaiya-800 focus:outline-none">
+                            <option value="default">Urutkan: Terbaru</option>
+                            <option value="low-high">Harga: Rendah ke Tinggi</option>
+                            <option value="high-low">Harga: Tinggi ke Rendah</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE: PROFIL ==================== -->
+        <section id="page-profil" class="page-content hidden">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-affaiya-500 font-semibold uppercase text-xs tracking-wider">Tentang Kami</span>
+                    <h1 class="font-serif text-4xl font-bold text-affaiya-800 mt-1">Kisah Brand Affaiya</h1>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=800&auto=format&fit=crop" class="rounded-2xl shadow-md border border-affaiya-200 w-full h-80 object-cover" alt="Affaiya Brand Story">
+                    </div>
+                    <div class="space-y-4 text-affaiya-800 text-sm leading-relaxed">
+                        <p class="font-medium text-base text-affaiya-900">Didirikan pada tahun 2023, Brand **Affaiya** lahir dari keinginan untuk menciptakan alas kaki wanita yang memadukan keindahan rasa estetika lokal dengan standar kenyamanan internasional.</p>
+                        <p>Kami percaya bahwa setiap langkah wanita Indonesia membawa cerita, perjuangan, dan inspirasi. Oleh karena itu, seluruh koleksi sandal Affaiya dirancang presisi mengikuti anatomi kaki wanita, dipadu dengan warna-warna bumi (earth tone) seperti coklat hangat, krem, dan nude yang manis.</p>
+                        <p>Semua produk kami diproduksi langsung oleh pengrajin lokal berpengalaman dengan standar pengawasan mutu yang ketat.</p>
+                    </div>
+                </div>
+
+                <!-- Visi Misi Card -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-8 rounded-2xl border border-affaiya-200 shadow-sm">
+                        <div class="w-12 h-12 rounded-xl bg-affaiya-100 flex items-center justify-center text-affaiya-600 text-xl mb-4">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <h2 class="font-serif text-2xl font-bold text-affaiya-900 mb-3">Visi Kami</h2>
+                        <p class="text-sm text-affaiya-700 leading-relaxed">Menjadi brand alas kaki wanita lokal terdepan di Indonesia yang dikenal akan kualitas, keanggunan desain, dan kenyamanan tanpa kompromi.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-affaiya-200 shadow-sm">
+                        <div class="w-12 h-12 rounded-xl bg-affaiya-100 flex items-center justify-center text-affaiya-600 text-xl mb-4">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h2 class="font-serif text-2xl font-bold text-affaiya-900 mb-3">Misi Kami</h2>
+                        <ul class="text-sm text-affaiya-700 leading-relaxed space-y-2 list-disc list-inside">
+                            <li>Menghadirkan inovasi sandal wanita ergonomis berkulit empuk.</li>
+                            <li>Memberdayakan para pengrajin sepatu lokal Indonesia.</li>
+                            <li>Memberikan pelayanan transaksi cepat & respon memuaskan bagi pelanggan.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE: SYARAT & KETENTUAN ==================== -->
+        <section id="page-syarat" class="page-content hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="text-center mb-10">
+                    <h1 class="font-serif text-3xl sm:text-4xl font-bold text-affaiya-800">Syarat & Ketentuan</h1>
+                    <p class="text-affaiya-600 text-sm mt-1">Informasi lengkap mengenai kebijakan pembelian dan garansi produk Affaiya.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-affaiya-200 p-6 sm:p-10 space-y-8 text-sm text-affaiya-800 shadow-sm">
+                    <div>
+                        <h2 class="font-serif text-xl font-bold text-affaiya-900 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-left text-affaiya-600 text-base"></i> Kebijakan Garansi Tukar Size
+                        </h2>
+                        <p class="leading-relaxed text-affaiya-700">Kami memahami kekhawatiran membeli sandal secara online. Oleh karena itu, Affaiya menyediakan fasilitas garansi penukaran ukuran (size) dengan syarat:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1 text-affaiya-700 pl-2">
+                            <li>Permohonan tukar size maksimal 3 hari setelah barang diterima.</li>
+                            <li>Sandal belum pernah dipakai untuk berjalan di luar ruangan dan produk dalam kondisi mulus.</li>
+                            <li>Dus dan kelengkapan dus masih utuh.</li>
+                            <li>Ongkos kirim penukaran ditanggung sepenuhnya oleh pembeli (kecuali kesalahan kirim dari pihak kami).</li>
+                        </ul>
+                    </div>
+
+                    <hr class="border-affaiya-200">
+
+                    <div>
+                        <h2 class="font-serif text-xl font-bold text-affaiya-900 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-truck text-affaiya-600 text-base"></i> Pengiriman & Pemrosesan Pesanan
+                        </h2>
+                        <ul class="list-disc list-inside space-y-1 text-affaiya-700 pl-2">
+                            <li>Pesanan difinalisasi setelah Anda melakukan konfirmasi pembayaran via WhatsApp admin.</li>
+                            <li>Pengiriman dilakukan setiap hari Senin - Sabtu pukul 16:00 WIB.</li>
+                            <li>Resi pengiriman akan diinformasikan melalui nomor WhatsApp yang terdaftar.</li>
+                        </ul>
+                    </div>
+
+                    <hr class="border-affaiya-200">
+
+                    <div>
+                        <h2 class="font-serif text-xl font-bold text-affaiya-900 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-affaiya-600 text-base"></i> Kebijakan Privasi
+                        </h2>
+                        <p class="leading-relaxed text-affaiya-700">Data pribadi yang Anda daftarkan di akun Affaiya (nama, email, nomor HP, alamat) hanya digunakan untuk keperluan pemrosesan pesanan dan tidak akan diperjualbelikan kepada pihak mana pun.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE: HUBUNGI ==================== -->
+        <section id="page-hubungi" class="page-content hidden">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="text-center max-w-xl mx-auto mb-10">
+                    <span class="text-affaiya-500 font-semibold uppercase text-xs tracking-wider">Layanan Pelanggan</span>
+                    <h1 class="font-serif text-3xl sm:text-4xl font-bold text-affaiya-800 mt-1">Hubungi Customer Service</h1>
+                    <p class="text-affaiya-600 text-sm mt-1">Ada pertanyaan mengenai produk atau pesanan Anda? Tim kami siap membantu.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Contact Cards -->
+                    <div class="space-y-4 md:col-span-1">
+                        <div class="bg-white p-6 rounded-2xl border border-affaiya-200 shadow-sm flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center text-xl">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-affaiya-900">WhatsApp CS</h3>
+                                <p class="text-xs text-affaiya-600">+62 812-3456-7890</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-affaiya-200 shadow-sm flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-affaiya-100 text-affaiya-600 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-affaiya-900">Email Offical</h3>
+                                <p class="text-xs text-affaiya-600">cs@affaiya.com</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-affaiya-200 shadow-sm flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-affaiya-100 text-affaiya-600 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-affaiya-900">Jam Operasional</h3>
+                                <p class="text-xs text-affaiya-600">Senin - Sabtu: 08.00 - 20.00 WIB</p>
+                            </div>
+                        </div>
+
+                        <!-- Direct WhatsApp Button Card -->
+                        <a href="https://wa.me/6281234567890?text=Halo%20Admin%20Affaiya,%20saya%20ingin%20bertanya%20mengenai%20produk%20sandal" target="_blank" class="block w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3.5 px-4 rounded-xl text-center shadow transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Chat Direct WhatsApp
+                        </a>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="md:col-span-2 bg-white p-8 rounded-2xl border border-affaiya-200 shadow-sm">
+                        <h2 class="font-serif text-xl font-bold text-affaiya-900 mb-6">Kirim Pesan Langsung</h2>
+                        <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-affaiya-800 uppercase mb-1">Nama Lengkap</label>
+                                <input type="text" required id="contactName" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-affaiya-800 uppercase mb-1">Nomor WhatsApp</label>
+                                <input type="tel" required id="contactPhone" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-affaiya-800 uppercase mb-1">Pesan Anda</label>
+                                <textarea required id="contactMessage" rows="4" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-affaiya-600 hover:bg-affaiya-700 text-white font-medium py-3 rounded-xl transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane text-xs"></i> Kirim Pesan via WA
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PAGE: ADMIN DASHBOARD ==================== -->
+        <section id="page-admin" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                    <div>
+                        <span class="inline-block bg-affaiya-600 text-white text-xs font-bold px-2.5 py-1 rounded-md mb-1">PANEL ADMIN</span>
+                        <h1 class="font-serif text-3xl font-bold text-affaiya-900">Dashboard Pengelolaan Affaiya</h1>
+                    </div>
+                    <!-- Admin Tab Switches -->
+                    <div class="flex bg-affaiya-200 p-1 rounded-xl">
+                        <button onclick="switchAdminTab('products')" id="adminTabProdBtn" class="px-4 py-2 rounded-lg text-xs font-bold transition bg-white text-affaiya-900 shadow-sm">Manajemen Produk</button>
+                        <button onclick="switchAdminTab('users')" id="adminTabUsersBtn" class="px-4 py-2 rounded-lg text-xs font-bold transition text-affaiya-700 hover:text-affaiya-900">Manajemen Akun User</button>
+                    </div>
+                </div>
+
+                <!-- ADMIN SECTION 1: PRODUCT CRUD -->
+                <div id="adminSectionProducts" class="space-y-6">
+                    <div class="flex justify-between items-center bg-white p-4 rounded-2xl border border-affaiya-200 shadow-sm">
+                        <h2 class="font-bold text-lg text-affaiya-900">Daftar Produk Sandal</h2>
+                        <button onclick="openAddProductModal()" class="bg-affaiya-600 hover:bg-affaiya-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Tambah Produk Baru
+                        </button>
+                    </div>
+
+                    <!-- Products Table -->
+                    <div class="bg-white rounded-2xl border border-affaiya-200 shadow-sm overflow-hidden">
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse">
                                 <thead>
-                                    <tr class="bg-stone-50 border-b border-stone-200 text-xs font-bold text-stone-500 uppercase tracking-wider">
-                                        <th class="p-4">Produk</th>
+                                    <tr class="bg-affaiya-100 text-affaiya-800 text-xs font-bold uppercase tracking-wider border-b border-affaiya-200">
+                                        <th class="p-4">Foto Utama</th>
+                                        <th class="p-4">Nama Produk</th>
                                         <th class="p-4">Kategori</th>
                                         <th class="p-4">Harga</th>
-                                        <th class="p-4">Stok</th>
-                                        <th class="p-4 text-right">Aksi</th>
+                                        <th class="p-4">Ukuran Available</th>
+                                        <th class="p-4 text-center">Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody id="admin-product-table-body" class="divide-y divide-stone-100 text-sm">
-                                    <!-- Populated via JS -->
+                                <tbody id="adminProductsTableBody" class="divide-y divide-affaiya-100 text-sm">
+                                    <!-- Populated by JS -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tab 2: Manajemen Akun Content -->
-                <div id="admin-content-users" class="hidden">
-                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden">
+                <!-- ADMIN SECTION 2: USER MANAGEMENT CRUD -->
+                <div id="adminSectionUsers" class="space-y-6 hidden">
+                    <div class="bg-white p-4 rounded-2xl border border-affaiya-200 shadow-sm flex justify-between items-center">
+                        <div>
+                            <h2 class="font-bold text-lg text-affaiya-900">Daftar Akun User Terdaftar</h2>
+                            <p class="text-xs text-affaiya-500">*Admin tidak dapat menambah akun. Pendaftaran akun hanya bisa dilakukan oleh User sendiri.</p>
+                        </div>
+                    </div>
+
+                    <!-- Users Table -->
+                    <div class="bg-white rounded-2xl border border-affaiya-200 shadow-sm overflow-hidden">
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse">
                                 <thead>
-                                    <tr class="bg-stone-50 border-b border-stone-200 text-xs font-bold text-stone-500 uppercase tracking-wider">
-                                        <th class="p-4">Profil</th>
-                                        <th class="p-4">Nama Pengguna</th>
-                                        <th class="p-4">Username</th>
+                                    <tr class="bg-affaiya-100 text-affaiya-800 text-xs font-bold uppercase tracking-wider border-b border-affaiya-200">
+                                        <th class="p-4">Nama</th>
+                                        <th class="p-4">Email</th>
+                                        <th class="p-4">Nomor HP</th>
                                         <th class="p-4">Role</th>
-                                        <th class="p-4 text-right">Aksi</th>
+                                        <th class="p-4 text-center">Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody id="admin-user-table-body" class="divide-y divide-stone-100 text-sm">
-                                    <!-- Populated via JS -->
+                                <tbody id="adminUsersTableBody" class="divide-y divide-affaiya-100 text-sm">
+                                    <!-- Populated by JS -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL: LOGIN / REGISTER -->
-    <div id="auth-modal" class="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative transform transition-all">
-            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-700">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-
-            <div class="text-center mb-8">
-                <div class="w-12 h-12 rounded-2xl bg-brand-700 text-white flex items-center justify-center text-xl font-bold mx-auto mb-3 shadow-md">
-                    Af
-                </div>
-                <h2 id="auth-modal-title" class="text-2xl font-extrabold text-stone-900">Masuk ke Affaiya</h2>
-                <p id="auth-modal-subtitle" class="text-xs text-stone-500 mt-1">Silakan masukkan akun Anda untuk melanjutkan belanja.</p>
-            </div>
-
-            <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
-                <div id="auth-name-group" class="hidden">
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Nama Lengkap</label>
-                    <input type="text" id="auth-name" placeholder="Nama Anda" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700 focus:bg-white">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Username / Email</label>
-                    <input type="text" id="auth-email" required placeholder="admin atau user@email.com" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700 focus:bg-white">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Kata Sandi</label>
-                    <input type="password" id="auth-password" required placeholder="••••••••" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700 focus:bg-white">
-                </div>
-                <button type="submit" id="auth-submit-btn" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-semibold py-3.5 rounded-xl shadow-md transition-all">Masuk</button>
-            </form>
-
-            <div id="auth-switch-container" class="mt-6 text-center text-sm text-stone-600">
-                Belum punya akun? <button onclick="toggleAuthMode('register')" class="text-brand-700 font-bold hover:underline">Daftar sekarang</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: PROFILE EDIT (Avatar & Account Info) -->
-    <div id="profile-modal" class="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative">
-            <button onclick="closeProfileModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-700">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <h2 class="text-2xl font-extrabold text-stone-900 mb-6">Edit Profil Saya</h2>
-            
-            <form id="profile-form" onsubmit="handleProfileSave(event)" class="space-y-4">
-                <div class="flex flex-col items-center mb-4">
-                    <div class="w-24 h-24 rounded-full overflow-hidden bg-stone-100 border-2 border-stone-200 mb-3 relative group">
-                        <img id="profile-preview-img" src="https://placehold.co/150x150/f5d3cf/8c4535?text=User" alt="Avatar" class="w-full h-full object-cover">
-                    </div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">Ganti Foto Profil</label>
-                    <input type="file" id="profile-avatar-input" accept="image/*" class="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-600 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-700 file:text-white hover:file:bg-brand-800">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Nama Lengkap</label>
-                    <input type="text" id="profile-name" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Username</label>
-                    <input type="text" id="profile-username" required class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Kata Sandi Baru</label>
-                    <input type="password" id="profile-password" placeholder="Kosongkan jika tidak diubah" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                </div>
-                <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-semibold py-3.5 rounded-xl shadow transition-all">Simpan Perubahan</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: PRODUCT DETAIL & IMAGES GALLERY -->
-    <div id="product-detail-modal" class="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeProductDetailModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-700 z-10">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <div id="product-detail-content">
-                <!-- Populated via JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: CART & CHECKOUT -->
-    <div id="cart-modal" class="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-sm hidden flex justify-end">
-        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col justify-between transform transition-transform duration-300">
-            <!-- Cart Header -->
-            <div class="p-6 border-b border-stone-200 flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-bag-shopping text-brand-700 text-lg"></i>
-                    <h2 class="text-lg font-extrabold text-stone-900">Keranjang Belanja</h2>
-                </div>
-                <button onclick="closeCartModal()" class="text-stone-400 hover:text-stone-700 p-2">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-
-            <!-- Cart Items List -->
-            <div id="cart-items-container" class="flex-grow overflow-y-auto p-6 space-y-4">
-                <!-- Populated via JS -->
-            </div>
-
-            <!-- Cart Footer & Checkout -->
-            <div class="p-6 border-t border-stone-200 bg-stone-50 space-y-4">
-                <!-- Coupon Input -->
-                <div class="flex space-x-2">
-                    <input type="text" id="coupon-input" placeholder="Kode Kupon (cth: AFFAIYA10)" class="flex-grow px-3.5 py-2.5 bg-white border border-stone-200 rounded-xl text-xs uppercase font-medium focus:outline-none focus:border-brand-700">
-                    <button onclick="applyCoupon()" class="bg-stone-800 hover:bg-stone-900 text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all">Pakai</button>
-                </div>
-                <div id="coupon-message" class="text-xs"></div>
-
-                <!-- Summary -->
-                <div class="space-y-1.5 text-sm pt-2 border-t border-stone-200">
-                    <div class="flex justify-between text-stone-600">
-                        <span>Subtotal</span>
-                        <span id="cart-subtotal">Rp 0</span>
-                    </div>
-                    <div id="discount-row" class="flex justify-between text-emerald-600 hidden">
-                        <span>Diskon Kupon</span>
-                        <span id="cart-discount">- Rp 0</span>
-                    </div>
-                    <div class="flex justify-between font-extrabold text-stone-900 text-base pt-1">
-                        <span>Total Pembayaran</span>
-                        <span id="cart-total" class="text-brand-700">Rp 0</span>
-                    </div>
-                </div>
-
-                <!-- Checkout WhatsApp Button -->
-                <button onclick="checkoutWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2">
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>Checkout via WhatsApp</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: ADMIN PRODUCT CRUD (Add/Edit) -->
-    <div id="admin-product-modal" class="fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeProductModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-700">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <h2 id="admin-product-modal-title" class="text-2xl font-extrabold text-stone-900 mb-6">Tambah Produk Baru</h2>
-            
-            <form id="admin-product-form" onsubmit="handleProductSave(event)" class="space-y-4">
-                <input type="hidden" id="product-edit-id">
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Nama Produk</label>
-                    <input type="text" id="prod-name" required placeholder="Cth: Affaiya Premium Outer" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Kategori</label>
-                        <input type="text" id="prod-category" required placeholder="Cth: Outerwear" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Harga (Rp)</label>
-                        <input type="number" id="prod-price" required placeholder="Cth: 250000" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Stok</label>
-                        <input type="number" id="prod-stock" required placeholder="Cth: 15" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Deskripsi Produk</label>
-                    <textarea id="prod-desc" rows="3" required placeholder="Keterangan bahan, ukuran, dan detail produk..." class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700"></textarea>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Upload Foto Produk (Bisa Pilih Lebih dari 1)</label>
-                    <input type="file" id="prod-images-input" accept="image/*" multiple class="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-700 file:text-white hover:file:bg-brand-800">
-                    <p class="text-[11px] text-stone-400 mt-1">Pilih beberapa foto sekaligus untuk katalog produk.</p>
-                </div>
-                <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-semibold py-3.5 rounded-xl shadow transition-all">Simpan Produk</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- TOAST NOTIFICATION CONTAINER -->
-    <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
-
     <!-- Footer -->
-    <footer class="bg-stone-900 text-stone-400 pt-16 pb-12 border-t border-stone-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+    <footer class="bg-affaiya-900 text-affaiya-100 border-t border-affaiya-800 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Brand Bio -->
                 <div class="space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-full bg-brand-700 text-white flex items-center justify-center font-bold text-lg">
-                            Af
-                        </div>
-                        <span class="text-xl font-bold tracking-wider text-white">AFFAIYA</span>
+		    <img src="logoaffaiya.png" alt="Logo Perusahaan" width="50" height="50">
+                    <p class="text-xs text-affaiya-200 leading-relaxed">Brand sandal wanita terpercaya dengan desain eksklusif, warna earth tone modern, dan kenyamanan terbaik untuk langkah anggun Anda.</p>
+                    <div class="flex space-x-3 text-lg">
+                        <a href="#" class="w-9 h-9 rounded-full bg-affaiya-800 flex items-center justify-center hover:bg-affaiya-600 transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-affaiya-800 flex items-center justify-center hover:bg-affaiya-600 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-affaiya-800 flex items-center justify-center hover:bg-affaiya-600 transition"><i class="fa-brands fa-tiktok"></i></a>
                     </div>
-                    <p class="text-sm leading-relaxed">Brand fashion & lifestyle modern yang menghadirkan kualitas terbaik untuk gaya elegan sehari-hari.</p>
                 </div>
+
+                <!-- Quick Nav -->
                 <div>
-                    <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Navigasi Utama</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><button onclick="switchPage('beranda')" class="hover:text-white transition-colors">Beranda</button></li>
-                        <li><button onclick="switchPage('koleksi')" class="hover:text-white transition-colors">Koleksi Produk</button></li>
-                        <li><button onclick="switchPage('tentang')" class="hover:text-white transition-colors">Tentang Kami</button></li>
-                        <li><button onclick="switchPage('syarat')" class="hover:text-white transition-colors">Syarat & Ketentuan</button></li>
+                    <h4 class="font-bold text-sm text-white uppercase tracking-wider mb-4 border-b border-affaiya-700 pb-2">Navigasi Utama</h4>
+                    <ul class="space-y-2 text-xs text-affaiya-200">
+                        <li><a href="javascript:navigateTo('beranda')" class="hover:text-affaiya-300 transition">Beranda</a></li>
+                        <li><a href="javascript:navigateTo('koleksi')" class="hover:text-affaiya-300 transition">Koleksi Produk Sandal</a></li>
+                        <li><a href="javascript:navigateTo('profil')" class="hover:text-affaiya-300 transition">Profil Brand</a></li>
+                        <li><a href="javascript:navigateTo('syarat')" class="hover:text-affaiya-300 transition">Syarat & Ketentuan Garansi</a></li>
+                        <li><a href="javascript:navigateTo('hubungi')" class="hover:text-affaiya-300 transition">Hubungi Kami</a></li>
                     </ul>
                 </div>
+
+                <!-- Payment Methods -->
                 <div>
-                    <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Bantuan & Kontak</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><button onclick="switchPage('hubungi')" class="hover:text-white transition-colors">Hubungi Kami</button></li>
-                        <li><a href="https://wa.me/6281234567890" target="_blank" class="hover:text-white transition-colors">WhatsApp Customer Service</a></li>
-                        <li><span class="text-stone-500">Email: support@affaiya.com</span></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Kupon Spesial</h4>
-                    <p class="text-sm mb-3">Gunakan kode kupon di keranjang belanja:</p>
-                    <div class="inline-block bg-stone-800 border border-stone-700 text-brand-200 font-mono font-bold px-3.5 py-2 rounded-xl text-sm">
-                        AFFAIYA10 (Diskon 10%)
+                    <h4 class="font-bold text-sm text-white uppercase tracking-wider mb-4 border-b border-affaiya-700 pb-2">Metode Pembayaran</h4>
+                    <p class="text-xs text-affaiya-200 mb-3">Mendukung transfer bank & QRIS saat checkout langsung via WA Admin:</p>
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold text-affaiya-900">
+                        <span class="bg-affaiya-100 px-2.5 py-1 rounded">BCA</span>
+                        <span class="bg-affaiya-100 px-2.5 py-1 rounded">MANDIRI</span>
+                        <span class="bg-affaiya-100 px-2.5 py-1 rounded">BRI</span>
+                        <span class="bg-affaiya-100 px-2.5 py-1 rounded">QRIS</span>
                     </div>
+                </div>
+
+                <!-- Location / CS -->
+                <div>
+                    <h4 class="font-bold text-sm text-white uppercase tracking-wider mb-4 border-b border-affaiya-700 pb-2">Kantor & Warehouse</h4>
+                    <p class="text-xs text-affaiya-200 leading-relaxed mb-2">Jl. Sandal Cendana No. 88, Bandung, Jawa Barat</p>
+                    <p class="text-xs text-affaiya-300 font-semibold"><i class="fa-solid fa-phone mr-1"></i> +62 812-3456-7890</p>
                 </div>
             </div>
-            <div class="border-t border-stone-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs">
-                <p>&copy; 2026 Affaiya Official Store. Hak Cipta Dilindungi.</p>
-                <div class="flex space-x-6 mt-4 sm:mt-0">
-                    <span class="hover:text-white transition-colors cursor-pointer">Privasi</span>
-                    <span class="hover:text-white transition-colors cursor-pointer">Ketentuan Layanan</span>
-                </div>
+
+            <div class="border-t border-affaiya-800 mt-10 pt-6 text-center text-xs text-affaiya-300">
+                &copy; 2026 Brand Affaiya. All rights reserved.
             </div>
         </div>
     </footer>
 
+
+    <!-- SHOPPING CART DRAWER OVERLAY -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleCartDrawer()"></div>
+    
+    <!-- SHOPPING CART DRAWER PANEL -->
+    <div id="cartDrawer" class="fixed top-0 right-0 h-full w-full sm:w-96 bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Drawer Header -->
+        <div class="p-4 border-b border-affaiya-200 flex justify-between items-center bg-affaiya-50">
+            <h3 class="font-serif font-bold text-lg text-affaiya-900 flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-affaiya-600"></i> Troli Belanja Anda
+            </h3>
+            <button onclick="toggleCartDrawer()" class="text-affaiya-500 hover:text-affaiya-900 text-xl font-bold p-1">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items List Container -->
+        <div id="cartItemsContainer" class="flex-grow overflow-y-auto p-4 space-y-4 divide-y divide-affaiya-100">
+            <!-- Populated by JS -->
+        </div>
+
+        <!-- Coupon & Summary Footer -->
+        <div class="p-4 border-t border-affaiya-200 bg-affaiya-50 space-y-3">
+            <!-- Coupon Code Section -->
+            <div>
+                <label class="block text-xs font-semibold text-affaiya-800 mb-1">Mempunyai Kupon Diskon?</label>
+                <div class="flex gap-2">
+                    <input type="text" id="couponInput" uppercase placeholder="Contoh: AFFAYIA10" class="uppercase text-xs w-full bg-white border border-affaiya-200 rounded-lg px-3 py-2 focus:outline-none focus:border-affaiya-600">
+                    <button onclick="applyCoupon()" class="bg-affaiya-800 hover:bg-affaiya-900 text-white text-xs font-bold px-3 py-2 rounded-lg transition">Gunakan</button>
+                </div>
+                <div id="couponNotice" class="text-[11px] mt-1 font-medium hidden"></div>
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="space-y-1 text-xs pt-2 border-t border-affaiya-200">
+                <div class="flex justify-between text-affaiya-700">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal">Rp 0</span>
+                </div>
+                <div class="flex justify-between text-green-600 font-medium">
+                    <span>Diskon Kupon:</span>
+                    <span id="cartDiscount">- Rp 0</span>
+                </div>
+                <div class="flex justify-between text-base font-bold text-affaiya-900 pt-1 border-t border-dashed border-affaiya-300">
+                    <span>Total Pembayaran:</span>
+                    <span id="cartTotal" class="text-affaiya-600">Rp 0</span>
+                </div>
+            </div>
+
+            <!-- Checkout Action Button -->
+            <button onclick="processCheckout()" class="w-full bg-affaiya-600 hover:bg-affaiya-700 text-white font-bold py-3.5 rounded-xl shadow transition flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Lanjut Ke Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col">
+            <button onclick="closeProductDetailModal()" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/80 backdrop-blur text-affaiya-800 flex items-center justify-center hover:bg-white font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="overflow-y-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Images Carousel/Gallery -->
+                <div>
+                    <img id="modalMainImg" src="" class="w-full h-64 object-cover rounded-xl border border-affaiya-200 mb-2" alt="Main Product">
+                    <div id="modalThumbnails" class="flex gap-2 overflow-x-auto pb-1">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+                <!-- Product Details -->
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <span id="modalCategory" class="text-xs font-semibold text-affaiya-500 uppercase tracking-wider">Kategori</span>
+                        <h2 id="modalTitle" class="font-serif text-2xl font-bold text-affaiya-900 mb-1">Nama Produk</h2>
+                        <div id="modalPrice" class="text-xl font-bold text-affaiya-600 mb-4">Rp 0</div>
+                        <p id="modalDesc" class="text-xs text-affaiya-700 leading-relaxed mb-4">Deskripsi Produk...</p>
+                        
+                        <!-- Size Selector -->
+                        <div class="mb-4">
+                            <label class="block text-xs font-bold text-affaiya-800 uppercase mb-2">Pilih Ukuran (Size):</label>
+                            <div id="modalSizesContainer" class="flex flex-wrap gap-2">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart Action -->
+                    <button id="modalAddToCartBtn" onclick="addToCartFromModal()" class="w-full bg-affaiya-600 hover:bg-affaiya-700 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 mt-4">
+                        <i class="fa-solid fa-cart-plus"></i> Tambah Ke Troli
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTHENTICATION MODAL (LOGIN & REGISTER) -->
+    <div id="authModal" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-affaiya-400 hover:text-affaiya-800 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Header Switcher -->
+            <div class="flex border-b border-affaiya-200 mb-6">
+                <button onclick="switchAuthTab('login')" id="authTabLogin" class="flex-1 py-2 font-bold text-sm text-center border-b-2 border-affaiya-600 text-affaiya-900">Masuk / Login</button>
+                <button onclick="switchAuthTab('register')" id="authTabRegister" class="flex-1 py-2 font-bold text-sm text-center border-b-2 border-transparent text-affaiya-400 hover:text-affaiya-700">Daftar Akun Baru</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Email / Username</label>
+                    <input type="email" id="loginEmail" required placeholder="Contoh: user@gmail.com" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Kata Sandi (Password)</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+
+                <!-- Preset info for testing -->
+                <div class="bg-affaiya-50 p-3 rounded-xl border border-affaiya-200 text-xs text-affaiya-700 space-y-1">
+                    <p class="font-bold text-affaiya-900"><i class="fa-solid fa-circle-info mr-1 text-affaiya-600"></i> Akun Bawaan Kredensial Admin:</p>
+                    <p>Email: <code class="bg-affaiya-200 px-1 rounded text-affaiya-900">admin@affaiya.com</code></p>
+                    <p>Pass: <code class="bg-affaiya-200 px-1 rounded text-affaiya-900">admin123</code></p>
+                </div>
+
+                <button type="submit" class="w-full bg-affaiya-600 hover:bg-affaiya-700 text-white font-bold py-3 rounded-xl transition">
+                    Masuk Sekarang
+                </button>
+            </form>
+
+            <!-- REGISTER FORM (User Only) -->
+            <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Nama Lengkap</label>
+                    <input type="text" id="regName" required placeholder="Masukkan nama lengkap Anda" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Email</label>
+                    <input type="email" id="regEmail" required placeholder="email@contoh.com" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Nomor HP / WhatsApp</label>
+                    <input type="tel" id="regPhone" required placeholder="08123456789" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Kata Sandi (Password)</label>
+                    <input type="password" id="regPassword" required placeholder="Minimal 6 karakter" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <p class="text-[11px] text-affaiya-500">* Pendaftaran akun khusus untuk pembeli/user.</p>
+
+                <button type="submit" class="w-full bg-affaiya-600 hover:bg-affaiya-700 text-white font-bold py-3 rounded-xl transition">
+                    Daftar Akun User
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN PRODUCT MODAL (ADD & EDIT) -->
+    <div id="adminProductModal" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAdminProductModal()" class="absolute top-4 right-4 text-affaiya-400 hover:text-affaiya-800 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h2 id="adminProductModalTitle" class="font-serif text-2xl font-bold text-affaiya-900 mb-4">Tambah Produk Baru</h2>
+
+            <form id="adminProductForm" onsubmit="handleSaveProduct(event)" class="space-y-4">
+                <input type="hidden" id="adminProdId">
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Nama Produk Sandal</label>
+                    <input type="text" id="adminProdName" required class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Kategori</label>
+                    <select id="adminProdCategory" required class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-affaiya-600">
+                        <option value="Sandal Slop">Sandal Slop</option>
+                        <option value="Sandal Tali / Strap">Sandal Tali / Strap</option>
+                        <option value="High Heels Sandal">High Heels Sandal</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Harga (Rp)</label>
+                    <input type="number" id="adminProdPrice" required min="1000" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Deskripsi Produk</label>
+                    <textarea id="adminProdDesc" rows="3" required class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-affaiya-600"></textarea>
+                </div>
+
+                <!-- Multi-Image Upload (File Upload & Base64 preview or Image URL) -->
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Upload Foto Produk (Dapat Upload Multi Foto/File)</label>
+                    <input type="file" id="adminProdFileInput" multiple accept="image/*" onchange="handleFileSelect(event)" class="w-full text-xs text-affaiya-700 bg-affaiya-50 border border-affaiya-200 rounded-xl p-2 cursor-pointer mb-2">
+                    
+                    <p class="text-[11px] text-affaiya-500 mb-1">Atau Masukkan URL Gambar (Pisahkan dengan koma jika lebih dari 1):</p>
+                    <input type="text" id="adminProdUrlInput" placeholder="https://example.com/img1.jpg, https://example.com/img2.jpg" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-affaiya-600">
+
+                    <!-- Image Previews -->
+                    <div id="imagePreviewContainer" class="flex flex-wrap gap-2 mt-3">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeAdminProductModal()" class="w-1/2 bg-affaiya-100 hover:bg-affaiya-200 text-affaiya-800 font-bold py-2.5 rounded-xl transition text-xs">Batal</button>
+                    <button type="submit" class="w-1/2 bg-affaiya-600 hover:bg-affaiya-700 text-white font-bold py-2.5 rounded-xl transition text-xs">Simpan Produk</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
     <script>
-        /* ==========================================
-           DEFAULT INITIAL DATA & LOCALSTORAGE STATE
-           ========================================== */
+        // ==========================================
+        // 1. INITIAL DATA & STATE MANAGEMENT
+        // ==========================================
+
         const DEFAULT_PRODUCTS = [
             {
                 id: 'prod-1',
-                name: 'Affaiya Elegant Linen Outer',
-                category: 'Outerwear',
-                price: 285000,
-                stock: 15,
-                description: 'Outerwear berbahan linen premium yang ringan dan sejuk saat dikenakan. Cocok untuk acara formal maupun casual.',
+                name: 'Affaiya Premium Moca Slide',
+                category: 'Sandal Slop',
+                price: 189000,
+                description: 'Sandal slop wanita warna coklat moca elegan dengan bantalan insole memory foam ekstra empuk. Cocok untuk bersantai maupun bepergian casual.',
                 images: [
-                    'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=800&auto=format&fit=crop',
-                    'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop'
-                ]
+                    'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1560343090-f0409e92791a?q=80&w=800&auto=format&fit=crop'
+                ],
+                sizes: [36, 37, 38, 39, 40, 41]
             },
             {
                 id: 'prod-2',
-                name: 'Affaiya Chic Midi Dress',
-                category: 'Dress',
-                price: 345000,
-                stock: 10,
-                description: 'Midi dress berpotongan modern dengan detail kancing elegan. Memberikan kesan anggun dan stylish sepanjang hari.',
+                name: 'Affaiya Aesthetic Ankle Strap',
+                category: 'Sandal Tali / Strap',
+                price: 219000,
+                description: 'Sandal bertali coklat tanah yang anggun. Dilengkapi aksen buckle emas antik yang memberikan keindahan abadi pada setiap langkah.',
                 images: [
-                    'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=800&auto=format&fit=crop',
-                    'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=800&auto=format&fit=crop'
-                ]
+                    'https://images.unsplash.com/photo-1560343090-f0409e92791a?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=800&auto=format&fit=crop'
+                ],
+                sizes: [37, 38, 39, 40]
             },
             {
                 id: 'prod-3',
-                name: 'Affaiya Casual Silk Blouse',
-                category: 'Blouse',
-                price: 195000,
-                stock: 22,
-                description: 'Blouse berbahan silk lembut dengan kilau eksklusif yang nyaman di kulit dan mudah dipadupadankan.',
+                name: 'Affaiya Elegant Block Heels 5cm',
+                category: 'High Heels Sandal',
+                price: 259000,
+                description: 'Sandal heels hak tahu kokoh 5cm. Didesain seimbang agar tidak membuat kaki cepat lelah untuk acara pernikahan maupun kantor.',
                 images: [
-                    'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=800&auto=format&fit=crop'
-                ]
+                    'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?q=80&w=800&auto=format&fit=crop',
+                    'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=800&auto=format&fit=crop'
+                ],
+                sizes: [36, 37, 38, 39, 40]
             },
             {
                 id: 'prod-4',
-                name: 'Affaiya Signature Tote Bag',
-                category: 'Aksesori',
-                price: 210000,
-                stock: 8,
-                description: 'Tas jinjing kanvas premium berkapasitas luas dengan desain minimalis khas Affaiya.',
+                name: 'Affaiya Minimalist Cross Brown',
+                category: 'Sandal Slop',
+                price: 175000,
+                description: 'Desain silang kulit sintetis matte premium. Terlihat minimalis, simpel, dan sangat cocok dipadukan dengan busana muslimah atau casual.',
                 images: [
-                    'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop'
-                ]
+                    'https://images.unsplash.com/photo-1603808033192-082d6919d3e1?q=80&w=800&auto=format&fit=crop'
+                ],
+                sizes: [36, 37, 38, 39, 40, 41]
             }
         ];
 
         const DEFAULT_USERS = [
-            {
-                id: 'admin-1',
-                name: 'Administrator',
-                username: 'admin',
-                password: 'admin123',
-                role: 'admin',
-                avatar: ''
-            },
-            {
-                id: 'user-1',
-                name: 'Siti Rahma',
-                username: 'siti',
-                password: 'user123',
-                role: 'user',
-                avatar: ''
-            }
+            { id: 'usr-admin', name: 'Administrator Affaiya', email: 'admin@affaiya.com', phone: '081200001111', role: 'admin', pass: 'admin123' },
+            { id: 'usr-1', name: 'Siti Sarah', email: 'siti@gmail.com', phone: '081234567890', role: 'user', pass: 'user123' }
         ];
 
-        // State Management
+        // Global State Initializers
         let products = JSON.parse(localStorage.getItem('affaiya_products')) || DEFAULT_PRODUCTS;
         let users = JSON.parse(localStorage.getItem('affaiya_users')) || DEFAULT_USERS;
-        let currentUser = JSON.parse(localStorage.getItem('affaiya_current_user')) || null;
+        let currentUser = JSON.parse(localStorage.getItem('affaiya_logged_user')) || null;
         let cart = JSON.parse(localStorage.getItem('affaiya_cart')) || [];
         
-        let currentCategoryFilter = 'Semua';
-        let appliedCoupon = null;
-        let currentSlideIndex = 0;
-        let slideInterval;
+        let appliedCoupon = null; // { code: 'AFFAYIA10', discountPercent: 10 }
+        let currentSelectedCategory = 'all';
+        let currentModalProduct = null;
+        let selectedSizeForModal = null;
+        let tempProductUploadedImages = []; // Array of Base64 or URL strings for Admin form
+        let currentHeroIndex = 0;
 
+        // Save State Helpers
         function saveData() {
             localStorage.setItem('affaiya_products', JSON.stringify(products));
             localStorage.setItem('affaiya_users', JSON.stringify(users));
-            localStorage.setItem('affaiya_current_user', JSON.stringify(currentUser));
+            localStorage.setItem('affaiya_logged_user', JSON.stringify(currentUser));
             localStorage.setItem('affaiya_cart', JSON.stringify(cart));
         }
 
-        /* ==========================================
-           TOAST NOTIFICATION
-           ========================================== */
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            const bgClass = type === 'success' ? 'bg-stone-900 text-white' : 'bg-red-600 text-white';
-            toast.className = `${bgClass} px-5 py-3 rounded-2xl shadow-xl text-sm font-medium transform translate-y-4 opacity-0 transition-all duration-300 flex items-center space-x-3 pointer-events-auto`;
-            
-            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check text-emerald-400"></i>' : '<i class="fa-solid fa-triangle-exclamation text-amber-300"></i>';
-            toast.innerHTML = `${icon}<span>${message}</span>`;
-            
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.classList.remove('translate-y-4', 'opacity-0');
-            }, 50);
+        // App Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderUserMenu();
+            renderCart();
+            renderHomeCarouselProducts();
+            renderKoleksiProducts();
+            startHeroAutoSlide();
+        });
 
-            setTimeout(() => {
-                toast.classList.add('translate-y-4', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        /* ==========================================
-           NAVIGATION & PAGE ROUTING
-           ========================================== */
-        function switchPage(pageId) {
-            document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
+        // Navigation Switcher
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(el => el.classList.add('hidden'));
+            
+            // Show requested page
             const target = document.getElementById(`page-${pageId}`);
-            if (target) target.classList.remove('hidden');
+            if (target) {
+                target.classList.remove('hidden');
+            }
 
-            // Update Header Nav Links Active State
-            document.querySelectorAll('.nav-link').forEach(btn => {
-                if(btn.getAttribute('data-page') === pageId) {
-                    btn.classList.add('text-brand-700', 'border-brand-700');
-                    btn.classList.remove('text-stone-600', 'border-transparent');
+            // Update nav active style
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.dataset.page === pageId) {
+                    btn.classList.add('text-affaiya-600', 'border-affaiya-600', 'font-bold');
+                    btn.classList.remove('border-transparent');
                 } else {
-                    btn.classList.remove('text-brand-700', 'border-brand-700');
-                    btn.classList.add('text-stone-600', 'border-transparent');
+                    btn.classList.remove('text-affaiya-600', 'border-affaiya-600', 'font-bold');
+                    btn.classList.add('border-transparent');
                 }
             });
 
+            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            if(pageId === 'beranda') {
-                renderHomeProducts();
-            } else if(pageId === 'koleksi') {
-                renderCategoryChips();
-                renderKoleksiProducts();
-            } else if(pageId === 'admin-dashboard') {
-                if(!currentUser || currentUser.role !== 'admin') {
-                    showToast('Akses ditolak! Khusus Administrator.', 'error');
-                    switchPage('beranda');
+            // If navigating to Admin, render tables
+            if (pageId === 'admin') {
+                if (!currentUser || currentUser.role !== 'admin') {
+                    showToast('Akses Ditolak! Khusus Panel Admin.', 'error');
+                    navigateTo('beranda');
                     return;
                 }
                 renderAdminProducts();
@@ -777,309 +1001,139 @@
             }
         }
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const icon = document.getElementById('mobile-menu-icon');
-            menu.classList.toggle('hidden');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-xmark');
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-affaiya-800 text-white' : (type === 'error' ? 'bg-red-600 text-white' : 'bg-yellow-600 text-white');
+            const icon = type === 'success' ? 'fa-circle-check' : 'fa-triangle-exclamation';
+
+            toast.className = `${bgColor} px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 text-xs font-semibold tracking-wide border border-white/20 transition-all duration-300 transform translate-x-10 pointer-events-auto`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i> <span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-x-10');
+            }, 10);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-x-10');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
-        /* ==========================================
-           SLIDESHOW LOGIC
-           ========================================== */
-        function initSlideshow() {
-            const slides = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.slide-dot');
-            if(slides.length === 0) return;
-
-            slides.forEach((slide, idx) => {
-                slide.style.opacity = idx === currentSlideIndex ? '1' : '0';
-            });
-            dots.forEach((dot, idx) => {
-                dot.className = idx === currentSlideIndex ? 'slide-dot w-8 h-3 rounded-full bg-brand-700 transition-all' : 'slide-dot w-3 h-3 rounded-full bg-white/50 transition-all';
-            });
+        function nextHeroSlide() {
+            currentHeroIndex = (currentHeroIndex + 1) % 2;
+            document.getElementById('heroCarouselSlides').style.transform = `translateX(-${currentHeroIndex * 100}%)`;
         }
-
-        function currentSlide(index) {
-            currentSlideIndex = index;
-            initSlideshow();
+        function prevHeroSlide() {
+            currentHeroIndex = (currentHeroIndex - 1 + 2) % 2;
+            document.getElementById('heroCarouselSlides').style.transform = `translateX(-${currentHeroIndex * 100}%)`;
         }
-
-        function startSlideshowInterval() {
-            slideInterval = setInterval(() => {
-                currentSlideIndex = (currentSlideIndex + 1) % 2;
-                initSlideshow();
+        function startHeroAutoSlide() {
+            setInterval(() => {
+                nextHeroSlide();
             }, 5000);
         }
 
-        /* ==========================================
-           AUTHENTICATION & PROFILE EDIT
-           ========================================== */
-        let authMode = 'login'; // 'login' or 'register'
+        function renderHomeCarouselProducts() {
+            const container = document.getElementById('homeProductCarousel');
+            if (!container) return;
 
-        function openAuthModal(mode = 'login') {
-            authMode = mode;
-            const modal = document.getElementById('auth-modal');
-            const title = document.getElementById('auth-modal-title');
-            const subtitle = document.getElementById('auth-modal-subtitle');
-            const nameGroup = document.getElementById('auth-name-group');
-            const submitBtn = document.getElementById('auth-submit-btn');
-            const switchContainer = document.getElementById('auth-switch-container');
+            container.innerHTML = products.map(prod => `
+                <div class="flex-shrink-0 w-64 bg-white rounded-2xl border border-affaiya-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 overflow-hidden group cursor-pointer" onclick="openProductDetailModal('${prod.id}')">
+                            <img src="${prod.images[0]}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="${prod.name}">
+                            <span class="absolute top-2 left-2 bg-affaiya-900/80 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded-md backdrop-blur">${prod.category}</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-sm text-affaiya-900 line-clamp-1 cursor-pointer hover:text-affaiya-600 transition" onclick="openProductDetailModal('${prod.id}')">${prod.name}</h3>
+                            <div class="text-affaiya-600 font-bold text-sm mt-1">Rp ${prod.price.toLocaleString('id-ID')}</div>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0">
+                        <button onclick="openProductDetailModal('${prod.id}')" class="w-full bg-affaiya-50 hover:bg-affaiya-600 hover:text-white text-affaiya-800 text-xs font-semibold py-2 rounded-xl border border-affaiya-200 transition">
+                            Lihat Detail
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-            modal.classList.remove('hidden');
-
-            if(mode === 'login') {
-                title.innerText = 'Masuk ke Affaiya';
-                subtitle.innerText = 'Silakan masukkan akun Anda untuk melanjutkan.';
-                nameGroup.classList.add('hidden');
-                document.getElementById('auth-name').removeAttribute('required');
-                submitBtn.innerText = 'Masuk';
-                switchContainer.innerHTML = `Belum punya akun? <button onclick="toggleAuthMode('register')" class="text-brand-700 font-bold hover:underline">Daftar sekarang</button>`;
+        function scrollProductCarousel(direction) {
+            const container = document.getElementById('homeProductCarousel');
+            const scrollAmount = 280;
+            if (direction === 'left') {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
             } else {
-                title.innerText = 'Daftar Akun Baru';
-                subtitle.innerText = 'Khusus pendaftaran User baru Affaiya.';
-                nameGroup.classList.remove('hidden');
-                document.getElementById('auth-name').setAttribute('required', 'true');
-                submitBtn.innerText = 'Daftar Akun';
-                switchContainer.innerHTML = `Sudah punya akun? <button onclick="toggleAuthMode('login')" class="text-brand-700 font-bold hover:underline">Masuk disini</button>`;
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
             }
-        }
-
-        function closeAuthModal() {
-            document.getElementById('auth-modal').classList.add('hidden');
-            document.getElementById('auth-form').reset();
-        }
-
-        function toggleAuthMode(mode) {
-            openAuthModal(mode);
-        }
-
-        function handleAuthSubmit(event) {
-            event.preventDefault();
-            const emailOrUser = document.getElementById('auth-email').value.trim();
-            const password = document.getElementById('auth-password').value.trim();
-
-            if(authMode === 'login') {
-                const found = users.find(u => u.username === emailOrUser && u.password === password);
-                if(found) {
-                    currentUser = found;
-                    saveData();
-                    closeAuthModal();
-                    updateAuthNav();
-                    showToast(`Selamat datang kembali, ${found.name}!`);
-                    if(found.role === 'admin') {
-                        switchPage('admin-dashboard');
-                    } else {
-                        switchPage('beranda');
-                    }
-                } else {
-                    showToast('Username/Email atau Kata Sandi salah!', 'error');
-                }
-            } else {
-                // Register User (Admin cannot be registered here)
-                const name = document.getElementById('auth-name').value.trim();
-                if(emailOrUser === 'admin') {
-                    showToast('Admin tidak boleh didaftarkan melalui form registrasi umum!', 'error');
-                    return;
-                }
-                const existing = users.find(u => u.username === emailOrUser);
-                if(existing) {
-                    showToast('Username/Email sudah terdaftar!', 'error');
-                    return;
-                }
-
-                const newUser = {
-                    id: 'user-' + Date.now(),
-                    name: name,
-                    username: emailOrUser,
-                    password: password,
-                    role: 'user',
-                    avatar: ''
-                };
-
-                users.push(newUser);
-                currentUser = newUser;
-                saveData();
-                closeAuthModal();
-                updateAuthNav();
-                showToast('Registrasi berhasil! Anda sudah masuk.');
-                switchPage('beranda');
-            }
-        }
-
-        function logoutUser() {
-            currentUser = null;
-            saveData();
-            updateAuthNav();
-            showToast('Anda telah keluar dari akun.');
-            switchPage('beranda');
-        }
-
-        function openProfileModal() {
-            if(!currentUser) return;
-            document.getElementById('profile-name').value = currentUser.name;
-            document.getElementById('profile-username').value = currentUser.username;
-            document.getElementById('profile-password').value = '';
-            document.getElementById('profile-preview-img').src = currentUser.avatar ? currentUser.avatar : 'https://placehold.co/150x150/f5d3cf/8c4535?text=' + encodeURIComponent(currentUser.name.charAt(0));
-            document.getElementById('profile-modal').classList.remove('hidden');
-        }
-
-        function closeProfileModal() {
-            document.getElementById('profile-modal').classList.add('hidden');
-        }
-
-        function handleProfileSave(event) {
-            event.preventDefault();
-            if(!currentUser) return;
-
-            const name = document.getElementById('profile-name').value.trim();
-            const username = document.getElementById('profile-username').value.trim();
-            const password = document.getElementById('profile-password').value.trim();
-            const avatarInput = document.getElementById('profile-avatar-input');
-
-            const updateUserData = (avatarBase64) => {
-                currentUser.name = name;
-                currentUser.username = username;
-                if(password) currentUser.password = password;
-                if(avatarBase64) currentUser.avatar = avatarBase64;
-
-                // Update in users array
-                const index = users.findIndex(u => u.id === currentUser.id);
-                if(index !== -1) {
-                    users[index] = { ...currentUser };
-                }
-
-                saveData();
-                closeProfileModal();
-                updateAuthNav();
-                showToast('Profil berhasil diperbarui.');
-            };
-
-            if(avatarInput.files && avatarInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    updateUserData(e.target.result);
-                };
-                reader.readAsDataURL(avatarInput.files[0]);
-            } else {
-                updateUserData(null);
-            }
-        }
-
-        function updateAuthNav() {
-            const container = document.getElementById('auth-nav-container');
-            if(currentUser) {
-                const avatarHtml = currentUser.avatar 
-                    ? `<img src="${currentUser.avatar}" class="w-8 h-8 rounded-full object-cover">`
-                    : `<div class="w-8 h-8 rounded-full bg-brand-700 text-white flex items-center justify-center text-xs font-bold">${currentUser.name.charAt(0)}</div>`;
-
-                if(currentUser.role === 'admin') {
-                    container.innerHTML = `
-                        <button onclick="openProfileModal()" class="flex items-center space-x-2 text-xs font-bold bg-amber-100 text-amber-900 px-3 py-1.5 rounded-xl hover:bg-amber-200 transition-all">
-                            ${avatarHtml}
-                            <span class="hidden sm:inline">${currentUser.name}</span>
-                        </button>
-                        <button onclick="switchPage('admin-dashboard')" class="hidden sm:flex items-center space-x-2 text-xs font-bold bg-stone-900 text-white px-3 py-2 rounded-xl">
-                            <i class="fa-solid fa-gauge"></i>
-                            <span>Admin Panel</span>
-                        </button>
-                        <button onclick="logoutUser()" class="p-2 text-stone-700 hover:text-red-600 rounded-lg" title="Keluar">
-                            <i class="fa-solid fa-right-from-bracket text-lg"></i>
-                        </button>
-                    `;
-                } else {
-                    container.innerHTML = `
-                        <button onclick="openProfileModal()" class="flex items-center space-x-2 text-xs font-bold bg-stone-100 text-stone-900 px-3 py-1.5 rounded-xl hover:bg-stone-200 transition-all">
-                            ${avatarHtml}
-                            <span class="hidden sm:inline">${currentUser.name}</span>
-                        </button>
-                        <button onclick="logoutUser()" class="p-2 text-stone-700 hover:text-red-600 rounded-lg" title="Keluar">
-                            <i class="fa-solid fa-right-from-bracket text-lg"></i>
-                        </button>
-                    `;
-                }
-            } else {
-                container.innerHTML = `
-                    <button onclick="openAuthModal('login')" class="text-stone-700 hover:text-brand-700 font-semibold text-sm px-3 py-2">Masuk</button>
-                    <button onclick="openAuthModal('register')" class="bg-brand-700 hover:bg-brand-800 text-white font-semibold text-sm px-4 py-2 rounded-xl shadow transition-all">Daftar</button>
-                `;
-            }
-        }
-
-        /* ==========================================
-           PRODUCT RENDERING & CATALOG
-           ========================================== */
-        function formatRupiah(num) {
-            return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        }
-
-        function renderHomeProducts() {
-            const grid = document.getElementById('home-product-grid');
-            const displayProducts = products.slice(0, 4); // Top 4 products
-            grid.innerHTML = displayProducts.map(p => productCardTemplate(p)).join('');
         }
 
         function renderKoleksiProducts() {
-            const grid = document.getElementById('koleksi-product-grid');
-            const searchVal = document.getElementById('search-input').value.toLowerCase();
-            
+            const grid = document.getElementById('productsGrid');
+            if (!grid) return;
+
+            const searchVal = (document.getElementById('searchInput')?.value || '').toLowerCase();
+            const sortVal = document.getElementById('sortSelect')?.value || 'default';
+
             let filtered = products.filter(p => {
-                const matchCat = currentCategoryFilter === 'Semua' || p.category === currentCategoryFilter;
+                const matchCat = currentSelectedCategory === 'all' || p.category === currentSelectedCategory;
                 const matchSearch = p.name.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal);
                 return matchCat && matchSearch;
             });
 
-            if(filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-16 text-stone-400"><i class="fa-solid fa-box-open text-4xl mb-3"></i><p>Tidak ada produk yang ditemukan.</p></div>`;
+            if (sortVal === 'low-high') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'high-low') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-affaiya-500">
+                        <i class="fa-solid fa-box-open text-4xl mb-2"></i>
+                        <p class="text-sm">Tidak ada produk sandal yang sesuai filter Anda.</p>
+                    </div>
+                `;
                 return;
             }
 
-            grid.innerHTML = filtered.map(p => productCardTemplate(p)).join('');
-        }
-
-        function productCardTemplate(p) {
-            const img = p.images && p.images.length > 0 ? p.images[0] : 'https://placehold.co/400x400/f5d3cf/8c4535?text=Affaiya';
-            return `
-                <div class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden group hover:shadow-md transition-all flex flex-col justify-between">
+            grid.innerHTML = filtered.map(prod => `
+                <div class="bg-white rounded-2xl border border-affaiya-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
                     <div>
-                        <div class="relative overflow-hidden bg-stone-100 aspect-square cursor-pointer" onclick="openProductDetail('${p.id}')">
-                            <img src="${img}" alt="${p.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
-                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-stone-900 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">${p.category}</span>
+                        <div class="relative h-56 overflow-hidden group cursor-pointer" onclick="openProductDetailModal('${prod.id}')">
+                            <img src="${prod.images[0]}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="${prod.name}">
+                            <span class="absolute top-2 left-2 bg-affaiya-900/80 text-white text-[10px] uppercase font-bold px-2.5 py-1 rounded-md backdrop-blur">${prod.category}</span>
                         </div>
-                        <div class="p-5">
-                            <h3 onclick="openProductDetail('${p.id}')" class="font-bold text-stone-900 mb-1 cursor-pointer hover:text-brand-700 transition-colors line-clamp-1">${p.name}</h3>
-                            <p class="text-xs text-stone-500 line-clamp-2 mb-3">${p.description}</p>
-                            <div class="flex items-center justify-between">
-                                <span class="font-extrabold text-brand-700">${formatRupiah(p.price)}</span>
-                                <span class="text-xs text-stone-400">Stok: ${p.stock}</span>
-                            </div>
+                        <div class="p-4">
+                            <h3 class="font-bold text-base text-affaiya-900 line-clamp-1 cursor-pointer hover:text-affaiya-600 transition" onclick="openProductDetailModal('${prod.id}')">${prod.name}</h3>
+                            <p class="text-xs text-affaiya-500 line-clamp-2 mt-1 mb-2">${prod.description}</p>
+                            <div class="text-affaiya-600 font-bold text-base">Rp ${prod.price.toLocaleString('id-ID')}</div>
                         </div>
                     </div>
-                    <div class="p-5 pt-0">
-                        <button onclick="addToCart('${p.id}')" class="w-full bg-stone-900 hover:bg-brand-700 text-white font-semibold py-2.5 rounded-xl text-xs transition-all flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            <span>Tambah Troli</span>
+                    <div class="p-4 pt-0">
+                        <button onclick="openProductDetailModal('${prod.id}')" class="w-full bg-affaiya-600 hover:bg-affaiya-700 text-white text-xs font-semibold py-2.5 rounded-xl transition flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-bag-shopping"></i> Pilih & Tambah
                         </button>
                     </div>
                 </div>
-            `;
-        }
-
-        function renderCategoryChips() {
-            const container = document.getElementById('category-filter-chips');
-            const categories = ['Semua', ...new Set(products.map(p => p.category))];
-            
-            container.innerHTML = categories.map(cat => {
-                const isActive = currentCategoryFilter === cat;
-                const activeClass = isActive ? 'bg-brand-700 text-white shadow-sm' : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-50';
-                return `<button onclick="setCategoryFilter('${cat}')" class="cat-chip px-5 py-2 rounded-xl text-sm font-semibold transition-all ${activeClass}">${cat}</button>`;
-            }).join('');
+            `).join('');
         }
 
         function setCategoryFilter(cat) {
-            currentCategoryFilter = cat;
-            renderCategoryChips();
+            currentSelectedCategory = cat;
+            document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.classList.add('bg-affaiya-600', 'text-white');
+                    btn.classList.remove('bg-affaiya-50', 'text-affaiya-800');
+                } else {
+                    btn.classList.remove('bg-affaiya-600', 'text-white');
+                    btn.classList.add('bg-affaiya-50', 'text-affaiya-800');
+                }
+            });
             renderKoleksiProducts();
         }
 
@@ -1087,578 +1141,617 @@
             renderKoleksiProducts();
         }
 
-        /* ==========================================
-           PRODUCT DETAIL MODAL
-           ========================================== */
-        function openProductDetail(productId) {
-            const p = products.find(item => item.id === productId);
-            if(!p) return;
+        function openProductDetailModal(prodId) {
+            const prod = products.find(p => p.id === prodId);
+            if (!prod) return;
 
-            const modal = document.getElementById('product-detail-modal');
-            const content = document.getElementById('product-detail-content');
+            currentModalProduct = prod;
+            selectedSizeForModal = prod.sizes[0] || 37;
 
-            const imgs = p.images && p.images.length > 0 ? p.images : ['https://placehold.co/400x400/f5d3cf/8c4535?text=Affaiya'];
+            document.getElementById('modalTitle').innerText = prod.name;
+            document.getElementById('modalCategory').innerText = prod.category;
+            document.getElementById('modalPrice').innerText = `Rp ${prod.price.toLocaleString('id-ID')}`;
+            document.getElementById('modalDesc').innerText = prod.description;
+            document.getElementById('modalMainImg').src = prod.images[0];
 
-            content.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <div class="bg-stone-100 rounded-2xl overflow-hidden aspect-square mb-3">
-                            <img id="main-detail-img" src="${imgs[0]}" alt="${p.name}" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex space-x-2 overflow-x-auto pb-2">
-                            ${imgs.map((imgUrl, idx) => `
-                                <img src="${imgUrl}" onclick="document.getElementById('main-detail-img').src='${imgUrl}'" class="w-16 h-16 rounded-xl object-cover cursor-pointer border-2 border-transparent hover:border-brand-700 transition-all flex-shrink-0">
-                            `).join('')}
-                        </div>
-                    </div>
-                    <div class="flex flex-col justify-between">
-                        <div>
-                            <span class="inline-block bg-brand-100 text-brand-800 text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider mb-2">${p.category}</span>
-                            <h1 class="text-2xl font-extrabold text-stone-900 mb-2">${p.name}</h1>
-                            <p class="text-2xl font-black text-brand-700 mb-4">${formatRupiah(p.price)}</p>
-                            <p class="text-sm text-stone-600 leading-relaxed mb-6">${p.description}</p>
-                            <div class="text-xs text-stone-500 mb-6">Stok tersedia: <span class="font-bold text-stone-800">${p.stock} pcs</span></div>
-                        </div>
-                        <button onclick="addToCart('${p.id}'); closeProductDetailModal();" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-bold py-3.5 rounded-xl shadow transition-all flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-bag-shopping"></i>
-                            <span>Tambah ke Troli</span>
-                        </button>
-                    </div>
-                </div>
-            `;
+            // Render Thumbnails
+            const thumbContainer = document.getElementById('modalThumbnails');
+            thumbContainer.innerHTML = prod.images.map((imgUrl, idx) => `
+                <img src="${imgUrl}" onclick="document.getElementById('modalMainImg').src='${imgUrl}'" class="w-12 h-12 object-cover rounded-lg border border-affaiya-200 cursor-pointer hover:opacity-80 transition flex-shrink-0" alt="Thumb">
+            `).join('');
 
-            modal.classList.remove('hidden');
+            // Render Size Selectors
+            const sizeContainer = document.getElementById('modalSizesContainer');
+            sizeContainer.innerHTML = prod.sizes.map(size => `
+                <button onclick="selectModalSize(${size})" id="sizeBtn-${size}" class="size-modal-btn px-3 py-1.5 rounded-lg text-xs font-bold border transition ${size === selectedSizeForModal ? 'bg-affaiya-600 text-white border-affaiya-600' : 'bg-affaiya-50 text-affaiya-800 border-affaiya-200'}">
+                    ${size}
+                </button>
+            `).join('');
+
+            const modal = document.getElementById('productDetailModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function selectModalSize(size) {
+            selectedSizeForModal = size;
+            document.querySelectorAll('.size-modal-btn').forEach(btn => {
+                btn.classList.remove('bg-affaiya-600', 'text-white', 'border-affaiya-600');
+                btn.classList.add('bg-affaiya-50', 'text-affaiya-800', 'border-affaiya-200');
+            });
+            const selectedBtn = document.getElementById(`sizeBtn-${size}`);
+            if (selectedBtn) {
+                selectedBtn.classList.add('bg-affaiya-600', 'text-white', 'border-affaiya-600');
+                selectedBtn.classList.remove('bg-affaiya-50', 'text-affaiya-800');
+            }
         }
 
         function closeProductDetailModal() {
-            document.getElementById('product-detail-modal').classList.add('hidden');
+            const modal = document.getElementById('productDetailModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
         }
 
-        /* ==========================================
-           CART & CHECKOUT LOGIC
-           ========================================== */
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            if(!product) return;
+        function addToCartFromModal() {
+            if (!currentModalProduct) return;
 
-            if(product.stock <= 0) {
-                showToast('Maaf, stok produk habis.', 'error');
+            // Admin cannot add/checkout
+            if (currentUser && currentUser.role === 'admin') {
+                showToast('Admin tidak dapat berbelanja atau checkout!', 'error');
                 return;
             }
 
-            const existing = cart.find(item => item.id === productId);
-            if(existing) {
-                if(existing.qty < product.stock) {
-                    existing.qty += 1;
-                } else {
-                    showToast('Stok produk tidak mencukupi.', 'error');
-                    return;
-                }
+            const existingIdx = cart.findIndex(item => item.id === currentModalProduct.id && item.selectedSize === selectedSizeForModal);
+            if (existingIdx > -1) {
+                cart[existingIdx].qty += 1;
             } else {
                 cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    image: product.images && product.images.length > 0 ? product.images[0] : '',
+                    id: currentModalProduct.id,
+                    name: currentModalProduct.name,
+                    price: currentModalProduct.price,
+                    image: currentModalProduct.images[0],
+                    selectedSize: selectedSizeForModal,
                     qty: 1
                 });
             }
 
             saveData();
-            updateCartBadge();
-            showToast(`Berhasil menambahkan ${product.name} ke troli.`);
+            renderCart();
+            closeProductDetailModal();
+            showToast(`Sandal ${currentModalProduct.name} (Size ${selectedSizeForModal}) berhasil ditambahkan ke troli!`);
         }
 
-        function updateCartBadge() {
-            const badge = document.getElementById('cart-badge');
-            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-            badge.innerText = totalQty;
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartOverlay');
+
+            const isOpen = !drawer.classList.contains('translate-x-full');
+            if (isOpen) {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+            }
         }
 
-        function openCartModal() {
-            renderCartItems();
-            document.getElementById('cart-modal').classList.remove('hidden');
-        }
-
-        function closeCartModal() {
-            document.getElementById('cart-modal').classList.add('hidden');
-        }
-
-        function renderCartItems() {
-            const container = document.getElementById('cart-items-container');
-            if(cart.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-20 text-stone-400">
-                        <i class="fa-solid fa-bag-shopping text-5xl mb-3"></i>
-                        <p class="text-sm font-medium">Keranjang belanja Anda masih kosong.</p>
-                    </div>
-                `;
-                document.getElementById('cart-subtotal').innerText = 'Rp 0';
-                document.getElementById('cart-total').innerText = 'Rp 0';
-                document.getElementById('discount-row').classList.add('hidden');
-                return;
+        function renderCart() {
+            const badge = document.getElementById('cartBadge');
+            const container = document.getElementById('cartItemsContainer');
+            
+            const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+            badge.innerText = totalItems;
+            if (totalItems > 0) {
+                badge.classList.remove('scale-0');
+            } else {
+                badge.classList.add('scale-0');
             }
 
-            container.innerHTML = cart.map(item => `
-                <div class="flex items-center space-x-4 bg-stone-50 p-3 rounded-2xl border border-stone-200">
-                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover flex-shrink-0">
-                    <div class="flex-grow">
-                        <h4 class="font-bold text-stone-900 text-sm line-clamp-1">${item.name}</h4>
-                        <p class="text-xs text-brand-700 font-bold mb-2">${formatRupiah(item.price)}</p>
-                        <div class="flex items-center space-x-3">
-                            <button onclick="updateCartQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white border border-stone-200 text-stone-700 flex items-center justify-center font-bold text-xs hover:bg-stone-100">-</button>
-                            <span class="text-xs font-bold text-stone-800">${item.qty}</span>
-                            <button onclick="updateCartQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-white border border-stone-200 text-stone-700 flex items-center justify-center font-bold text-xs hover:bg-stone-100">+</button>
-                        </div>
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center text-affaiya-400 py-12">
+                        <i class="fa-solid fa-basket-shopping text-5xl mb-3 text-affaiya-300"></i>
+                        <p class="text-sm font-medium">Troli belanja Anda masih kosong</p>
+                        <button onclick="toggleCartDrawer(); navigateTo('koleksi')" class="mt-4 text-xs bg-affaiya-600 text-white font-bold px-4 py-2 rounded-xl">Mulai Belanja</button>
                     </div>
-                    <button onclick="removeFromCart('${item.id}')" class="text-stone-400 hover:text-red-600 p-2">
-                        <i class="fa-solid fa-trash text-sm"></i>
-                    </button>
-                </div>
-            `).join('');
+                `;
+            } else {
+                container.innerHTML = cart.map((item, idx) => `
+                    <div class="flex gap-3 py-3 items-center">
+                        <img src="${item.image}" class="w-16 h-16 object-cover rounded-xl border border-affaiya-200" alt="${item.name}">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-xs text-affaiya-900 line-clamp-1">${item.name}</h4>
+                            <div class="text-[11px] text-affaiya-500">Ukuran: <span class="font-bold text-affaiya-800">${item.selectedSize}</span></div>
+                            <div class="text-xs font-bold text-affaiya-600 mt-0.5">Rp ${item.price.toLocaleString('id-ID')}</div>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="updateCartQty(${idx}, -1)" class="w-5 h-5 rounded bg-affaiya-100 hover:bg-affaiya-300 flex items-center justify-center text-xs font-bold">-</button>
+                                <span class="text-xs font-bold px-1">${item.qty}</span>
+                                <button onclick="updateCartQty(${idx}, 1)" class="w-5 h-5 rounded bg-affaiya-100 hover:bg-affaiya-300 flex items-center justify-center text-xs font-bold">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-600 text-sm p-1">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
 
             calculateCartTotals();
         }
 
-        function updateCartQty(id, delta) {
-            const item = cart.find(i => i.id === id);
-            if(!item) return;
-
-            const product = products.find(p => p.id === id);
-            const newQty = item.qty + delta;
-
-            if(newQty <= 0) {
-                removeFromCart(id);
-                return;
+        function updateCartQty(index, change) {
+            if (cart[index]) {
+                cart[index].qty += change;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+                saveData();
+                renderCart();
             }
-
-            if(product && newQty > product.stock) {
-                showToast('Stok maksimum tercapai.', 'error');
-                return;
-            }
-
-            item.qty = newQty;
-            saveData();
-            updateCartBadge();
-            renderCartItems();
         }
 
-        function removeFromCart(id) {
-            cart = cart.filter(i => i.id !== id);
+        function removeFromCart(index) {
+            cart.splice(index, 1);
             saveData();
-            updateCartBadge();
-            renderCartItems();
-            showToast('Produk dihapus dari troli.');
+            renderCart();
+            showToast('Item berhasil dihapus dari troli.');
         }
 
         function applyCoupon() {
-            const code = document.getElementById('coupon-input').value.trim().toUpperCase();
-            const msg = document.getElementById('coupon-message');
+            const input = document.getElementById('couponInput');
+            const notice = document.getElementById('couponNotice');
+            const code = (input.value || '').trim().toUpperCase();
 
-            if(code === 'AFFAIYA10') {
-                appliedCoupon = { code: 'AFFAIYA10', discountPercent: 10 };
-                msg.className = 'text-xs text-emerald-600 font-semibold';
-                msg.innerText = 'Kupon "AFFAIYA10" berhasil dipasang (Diskon 10%).';
-                showToast('Kupon diskon 10% berhasil diterapkan!');
+            if (code === 'AFFAYIA10') {
+                appliedCoupon = { code: 'AFFAYIA10', percent: 10 };
+                notice.innerText = '✓ Kupon diskon 10% berhasil dipasang!';
+                notice.className = 'text-[11px] mt-1 font-medium text-green-600 block';
+                showToast('Kupon AFFAYIA10 berhasil diterapkan!');
+            } else if (code === 'DISKONCOKLAT') {
+                appliedCoupon = { code: 'DISKONCOKLAT', percent: 15 };
+                notice.innerText = '✓ Kupon diskon spesial 15% dipasang!';
+                notice.className = 'text-[11px] mt-1 font-medium text-green-600 block';
+                showToast('Kupon DISKONCOKLAT berhasil diterapkan!');
             } else {
                 appliedCoupon = null;
-                msg.className = 'text-xs text-red-600 font-semibold';
-                msg.innerText = 'Kode kupon tidak valid.';
-                showToast('Kode kupon tidak valid.', 'error');
+                notice.innerText = '✕ Kode kupon tidak valid!';
+                notice.className = 'text-[11px] mt-1 font-medium text-red-600 block';
             }
+
             calculateCartTotals();
         }
 
         function calculateCartTotals() {
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            let discount = 0;
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            let discountAmount = 0;
 
-            if(appliedCoupon) {
-                discount = subtotal * (appliedCoupon.discountPercent / 100);
-                document.getElementById('discount-row').classList.remove('hidden');
-                document.getElementById('cart-discount').innerText = `- ${formatRupiah(discount)}`;
-            } else {
-                document.getElementById('discount-row').classList.add('hidden');
+            if (appliedCoupon) {
+                discountAmount = (subtotal * appliedCoupon.percent) / 100;
             }
 
-            const total = subtotal - discount;
+            const total = Math.max(0, subtotal - discountAmount);
 
-            document.getElementById('cart-subtotal').innerText = formatRupiah(subtotal);
-            document.getElementById('cart-total').innerText = formatRupiah(total);
+            document.getElementById('cartSubtotal').innerText = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            document.getElementById('cartDiscount').innerText = `- Rp ${discountAmount.toLocaleString('id-ID')}`;
+            document.getElementById('cartTotal').innerText = `Rp ${total.toLocaleString('id-ID')}`;
         }
 
-        function checkoutWhatsApp() {
-            // Rule check: Admin cannot checkout
-            if(currentUser && currentUser.role === 'admin') {
-                showToast('Administrator tidak diperbolehkan melakukan checkout produk.', 'error');
+        function processCheckout() {
+            if (cart.length === 0) {
+                showToast('Troli Anda masih kosong!', 'error');
                 return;
             }
 
-            // Rule check: User must be logged in before checkout
-            if(!currentUser) {
-                showToast('Anda harus masuk atau mendaftar akun terlebih dahulu sebelum checkout.', 'error');
-                closeCartModal();
+            // Admin Guard Rule
+            if (currentUser && currentUser.role === 'admin') {
+                showToast('AKSES DITOLAK: Admin tidak diperbolehkan checkout produk!', 'error');
+                return;
+            }
+
+            // User Login Mandatory Guard
+            if (!currentUser) {
+                showToast('Silahkan Login atau Daftar Akun terlebih dahulu sebelum Checkout!', 'warning');
+                toggleCartDrawer();
                 openAuthModal('login');
                 return;
             }
 
-            if(cart.length === 0) {
-                showToast('Keranjang belanja Anda masih kosong.', 'error');
-                return;
+            // Calculate Final Totals
+            const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+            let discountAmount = 0;
+            if (appliedCoupon) {
+                discountAmount = (subtotal * appliedCoupon.percent) / 100;
             }
+            const grandTotal = subtotal - discountAmount;
 
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            let discount = appliedCoupon ? subtotal * (appliedCoupon.discountPercent / 100) : 0;
-            let total = subtotal - discount;
+            // Generate WA Message Text
+            let message = `*HALO ADMIN AFFAYIA, SAYA INGIN PESAN SANDAL*\n`;
+            message += `--------------------------------------\n`;
+            message += `*Data Pemesan:*\n`;
+            message += `Nama: ${currentUser.name}\n`;
+            message += `Email: ${currentUser.email}\n`;
+            message += `No. HP: ${currentUser.phone || '-'}\n\n`;
 
-            let message = `Halo Admin Affaiya,\n\nSaya ingin melakukan pemesanan (Checkout) produk:\n\n`;
-            cart.forEach((item, index) => {
-                message += `${index + 1}. *${item.name}* (${item.qty}x) - ${formatRupiah(item.price * item.qty)}\n`;
+            message += `*Daftar Pesanan Sandal:*\n`;
+            cart.forEach((item, i) => {
+                message += `${i+1}. ${item.name} (Size: ${item.selectedSize}) - ${item.qty} pasang x Rp ${item.price.toLocaleString('id-ID')}\n`;
             });
-            message += `\nSubtotal: ${formatRupiah(subtotal)}`;
-            if(appliedCoupon) {
-                message += `\nKupon (${appliedCoupon.code}): -${formatRupiah(discount)}`;
+
+            message += `\n*Rincian Pembayaran:*\n`;
+            message += `Subtotal: Rp ${subtotal.toLocaleString('id-ID')}\n`;
+            if (appliedCoupon) {
+                message += `Kupon Diskon (${appliedCoupon.code}): -Rp ${discountAmount.toLocaleString('id-ID')}\n`;
             }
-            message += `\n*Total Pembayaran: ${formatRupiah(total)}*`;
-            message += `\n\nData Pemesan:\n- Nama: ${currentUser.name}\n- Username: ${currentUser.username}`;
+            message += `*Total Akhir: Rp ${grandTotal.toLocaleString('id-ID')}*\n`;
+            message += `--------------------------------------\n`;
+            message += `Mohon diinformasikan nomor rekening pembayaran & estimasi ongkir. Terima kasih!`;
 
-            const encoded = encodeURIComponent(message);
-            const waNumber = '6281234567890';
-            const waUrl = `https://wa.me/${waNumber}?text=${encoded}`;
+            const adminPhoneNumber = '6281234567890';
+            const encodedMsg = encodeURIComponent(message);
+            const waUrl = `https://wa.me/${adminPhoneNumber}?text=${encodedMsg}`;
 
+            // Reset Cart after checkout
+            cart = [];
+            appliedCoupon = null;
+            saveData();
+            renderCart();
+            toggleCartDrawer();
+
+            // Redirect to WhatsApp
             window.open(waUrl, '_blank');
         }
 
-        /* ==========================================
-           ADMIN DASHBOARD (CRUD & USER MANAGEMENT)
-           ========================================== */
-        function switchAdminTab(tab) {
-            const prodTab = document.getElementById('admin-tab-products');
-            const userTab = document.getElementById('admin-tab-users');
-            const prodContent = document.getElementById('admin-content-products');
-            const userContent = document.getElementById('admin-content-users');
-            const headerAction = document.getElementById('admin-header-action');
+        function renderUserMenu() {
+            const container = document.getElementById('userMenuArea');
+            if (!container) return;
 
-            if(tab === 'products') {
-                prodTab.className = 'admin-tab pb-3 font-bold text-brand-700 border-b-2 border-brand-700 text-sm';
-                userTab.className = 'admin-tab pb-3 font-medium text-stone-500 hover:text-stone-800 text-sm';
-                prodContent.classList.remove('hidden');
-                userContent.classList.add('hidden');
-                headerAction.innerHTML = `
-                    <button onclick="openProductModal('add')" class="bg-brand-700 hover:bg-brand-800 text-white font-medium px-4 py-2.5 rounded-xl text-sm shadow transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-plus"></i>
-                        <span>Tambah Produk</span>
-                    </button>
+            if (currentUser) {
+                const isAdmin = currentUser.role === 'admin';
+                container.innerHTML = `
+                    <div class="flex items-center gap-2 bg-affaiya-100 p-1.5 px-3 rounded-full border border-affaiya-300">
+                        <i class="fa-solid ${isAdmin ? 'fa-user-gear text-affaiya-600' : 'fa-circle-user text-affaiya-800'} text-base"></i>
+                        <span class="text-xs font-bold text-affaiya-900 max-w-[100px] truncate">${currentUser.name}</span>
+                        ${isAdmin ? `<button onclick="navigateTo('admin')" class="text-[10px] bg-affaiya-600 text-white font-bold px-2 py-0.5 rounded-full hover:bg-affaiya-700 transition">Panel</button>` : ''}
+                        <button onclick="handleLogout()" title="Keluar / Logout" class="text-red-500 hover:text-red-700 ml-1 text-xs">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
+                    </div>
                 `;
             } else {
-                userTab.className = 'admin-tab pb-3 font-bold text-brand-700 border-b-2 border-brand-700 text-sm';
-                prodTab.className = 'admin-tab pb-3 font-medium text-stone-500 hover:text-stone-800 text-sm';
-                userContent.classList.remove('hidden');
-                prodContent.classList.add('hidden');
-                headerAction.innerHTML = `
-                    <button onclick="openUserModal('add')" class="bg-brand-700 hover:bg-brand-800 text-white font-medium px-4 py-2.5 rounded-xl text-sm shadow transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-user-plus"></i>
-                        <span>Tambah Akun</span>
+                container.innerHTML = `
+                    <button onclick="openAuthModal('login')" class="bg-affaiya-600 hover:bg-affaiya-700 text-white text-xs font-semibold px-4 py-2 rounded-full transition shadow-sm">
+                        <i class="fa-solid fa-user mr-1"></i> Masuk / Daftar
                     </button>
                 `;
+            }
+        }
+
+        function openAuthModal(tab = 'login') {
+            switchAuthTab(tab);
+            const modal = document.getElementById('authModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeAuthModal() {
+            const modal = document.getElementById('authModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const regForm = document.getElementById('registerForm');
+            const tabLogin = document.getElementById('authTabLogin');
+            const tabReg = document.getElementById('authTabRegister');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                regForm.classList.add('hidden');
+                tabLogin.classList.add('border-affaiya-600', 'text-affaiya-900');
+                tabLogin.classList.remove('border-transparent', 'text-affaiya-400');
+                tabReg.classList.remove('border-affaiya-600', 'text-affaiya-900');
+                tabReg.classList.add('border-transparent', 'text-affaiya-400');
+            } else {
+                loginForm.classList.add('hidden');
+                regForm.classList.remove('hidden');
+                tabReg.classList.add('border-affaiya-600', 'text-affaiya-900');
+                tabReg.classList.remove('border-transparent', 'text-affaiya-400');
+                tabLogin.classList.remove('border-affaiya-600', 'text-affaiya-900');
+                tabLogin.classList.add('border-transparent', 'text-affaiya-400');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const pass = document.getElementById('loginPassword').value;
+
+            const foundUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.pass === pass);
+
+            if (foundUser) {
+                currentUser = foundUser;
+                saveData();
+                renderUserMenu();
+                closeAuthModal();
+                showToast(`Selamat datang kembali, ${currentUser.name}!`);
+
+                if (currentUser.role === 'admin') {
+                    navigateTo('admin');
+                }
+            } else {
+                showToast('Email atau Password tidak cocok!', 'error');
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const pass = document.getElementById('regPassword').value;
+
+            // Check duplicate email
+            if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+                showToast('Email tersebut sudah terdaftar!', 'error');
+                return;
+            }
+
+            // Register as User strictly (Admin creation blocked)
+            const newUser = {
+                id: 'usr-' + Date.now(),
+                name,
+                email,
+                phone,
+                role: 'user',
+                pass
+            };
+
+            users.push(newUser);
+            currentUser = newUser;
+            saveData();
+            renderUserMenu();
+            closeAuthModal();
+            showToast('Pendaftaran akun berhasil! Anda siap untuk belanja.');
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            saveData();
+            renderUserMenu();
+            showToast('Anda telah keluar dari akun.');
+            navigateTo('beranda');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const phone = document.getElementById('contactPhone').value;
+            const msg = document.getElementById('contactMessage').value;
+
+            const waText = `Halo Admin Affaiya, Saya ${name} (${phone}):\n\n${msg}`;
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(waText)}`, '_blank');
+        }
+
+        function switchAdminTab(tab) {
+            const secProd = document.getElementById('adminSectionProducts');
+            const secUsers = document.getElementById('adminSectionUsers');
+            const btnProd = document.getElementById('adminTabProdBtn');
+            const btnUsers = document.getElementById('adminTabUsersBtn');
+
+            if (tab === 'products') {
+                secProd.classList.remove('hidden');
+                secUsers.classList.add('hidden');
+                btnProd.classList.add('bg-white', 'text-affaiya-900', 'shadow-sm');
+                btnUsers.classList.remove('bg-white', 'text-affaiya-900', 'shadow-sm');
+            } else {
+                secProd.classList.add('hidden');
+                secUsers.classList.remove('hidden');
+                btnUsers.classList.add('bg-white', 'text-affaiya-900', 'shadow-sm');
+                btnProd.classList.remove('bg-white', 'text-affaiya-900', 'shadow-sm');
             }
         }
 
         function renderAdminProducts() {
-            const tbody = document.getElementById('admin-product-table-body');
-            if(products.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-stone-400">Belum ada produk.</td></tr>`;
-                return;
-            }
+            const tbody = document.getElementById('adminProductsTableBody');
+            if (!tbody) return;
 
-            tbody.innerHTML = products.map(p => {
-                const img = p.images && p.images.length > 0 ? p.images[0] : '';
-                return `
-                    <tr class="border-b border-stone-100 hover:bg-stone-50 transition-all">
-                        <td class="p-4 flex items-center space-x-3">
-                            <img src="${img}" alt="" class="w-12 h-12 rounded-xl object-cover flex-shrink-0">
-                            <div>
-                                <div class="font-bold text-stone-900">${p.name}</div>
-                                <div class="text-xs text-stone-400">ID: ${p.id}</div>
-                            </div>
-                        </td>
-                        <td class="p-4"><span class="bg-stone-100 text-stone-800 text-xs font-semibold px-2.5 py-1 rounded-full">${p.category}</span></td>
-                        <td class="p-4 font-bold text-brand-700">${formatRupiah(p.price)}</td>
-                        <td class="p-4 text-stone-600">${p.stock} pcs</td>
-                        <td class="p-4 text-right space-x-2">
-                            <button onclick="openProductModal('edit', '${p.id}')" class="bg-stone-100 hover:bg-stone-200 text-stone-700 px-3 py-1.5 rounded-xl text-xs font-bold transition-all"><i class="fa-solid fa-pen"></i></button>
-                            <button onclick="deleteProduct('${p.id}')" class="bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-xl text-xs font-bold transition-all"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
+            tbody.innerHTML = products.map(p => `
+                <tr class="hover:bg-affaiya-50/50 transition">
+                    <td class="p-4">
+                        <img src="${p.images[0]}" class="w-12 h-12 object-cover rounded-xl border border-affaiya-200" alt="${p.name}">
+                    </td>
+                    <td class="p-4 font-bold text-affaiya-900">${p.name}</td>
+                    <td class="p-4"><span class="bg-affaiya-100 text-affaiya-800 text-xs px-2.5 py-1 rounded-md font-semibold">${p.category}</span></td>
+                    <td class="p-4 font-bold text-affaiya-600">Rp ${p.price.toLocaleString('id-ID')}</td>
+                    <td class="p-4 text-xs text-affaiya-600">${p.sizes.join(', ')}</td>
+                    <td class="p-4 text-center space-x-2">
+                        <button onclick="openEditProductModal('${p.id}')" class="bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-lg text-xs" title="Edit">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteProduct('${p.id}')" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg text-xs" title="Hapus">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
         }
 
-        function openProductModal(mode, id = null) {
-            const modal = document.getElementById('admin-product-modal');
-            const title = document.getElementById('admin-product-modal-title');
-            const form = document.getElementById('admin-product-form');
+        function openAddProductModal() {
+            document.getElementById('adminProductModalTitle').innerText = 'Tambah Produk Baru';
+            document.getElementById('adminProdId').value = '';
+            document.getElementById('adminProdName').value = '';
+            document.getElementById('adminProdCategory').value = 'Sandal Slop';
+            document.getElementById('adminProdPrice').value = '';
+            document.getElementById('adminProdDesc').value = '';
+            document.getElementById('adminProdUrlInput').value = '';
+            document.getElementById('adminProdFileInput').value = '';
+            tempProductUploadedImages = [];
+            renderImagePreviews();
 
-            form.reset();
-            document.getElementById('product-edit-id').value = '';
+            const modal = document.getElementById('adminProductModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
 
-            if(mode === 'add') {
-                title.innerText = 'Tambah Produk Baru';
-            } else {
-                title.innerText = 'Edit Produk';
-                const p = products.find(item => item.id === id);
-                if(p) {
-                    document.getElementById('product-edit-id').value = p.id;
-                    document.getElementById('prod-name').value = p.name;
-                    document.getElementById('prod-category').value = p.category;
-                    document.getElementById('prod-price').value = p.price;
-                    document.getElementById('prod-stock').value = p.stock;
-                    document.getElementById('prod-desc').value = p.description;
+        function openEditProductModal(prodId) {
+            const prod = products.find(p => p.id === prodId);
+            if (!prod) return;
+
+            document.getElementById('adminProductModalTitle').innerText = 'Edit Produk Sandal';
+            document.getElementById('adminProdId').value = prod.id;
+            document.getElementById('adminProdName').value = prod.name;
+            document.getElementById('adminProdCategory').value = prod.category;
+            document.getElementById('adminProdPrice').value = prod.price;
+            document.getElementById('adminProdDesc').value = prod.description;
+            document.getElementById('adminProdUrlInput').value = '';
+            document.getElementById('adminProdFileInput').value = '';
+            
+            tempProductUploadedImages = [...prod.images];
+            renderImagePreviews();
+
+            const modal = document.getElementById('adminProductModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeAdminProductModal() {
+            const modal = document.getElementById('adminProductModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Handle File Selection (Base64 conversion for multi image upload)
+        function handleFileSelect(e) {
+            const files = Array.from(e.target.files);
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    tempProductUploadedImages.push(evt.target.result);
+                    renderImagePreviews();
                 }
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function renderImagePreviews() {
+            const container = document.getElementById('imagePreviewContainer');
+            container.innerHTML = tempProductUploadedImages.map((imgSrc, idx) => `
+                <div class="relative w-16 h-16 group">
+                    <img src="${imgSrc}" class="w-full h-full object-cover rounded-lg border border-affaiya-300">
+                    <button type="button" onclick="removeTempImage(${idx})" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white rounded-full w-4 h-4 text-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function removeTempImage(idx) {
+            tempProductUploadedImages.splice(idx, 1);
+            renderImagePreviews();
+        }
+
+        function handleSaveProduct(e) {
+            e.preventDefault();
+            const id = document.getElementById('adminProdId').value;
+            const name = document.getElementById('adminProdName').value;
+            const category = document.getElementById('adminProdCategory').value;
+            const price = parseFloat(document.getElementById('adminProdPrice').value);
+            const description = document.getElementById('adminProdDesc').value;
+            const urlInputs = document.getElementById('adminProdUrlInput').value;
+
+            // Combine base64 file uploads and direct URL string inputs
+            let finalImages = [...tempProductUploadedImages];
+            if (urlInputs.trim().length > 0) {
+                const urls = urlInputs.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                finalImages = finalImages.concat(urls);
             }
 
-            modal.classList.remove('hidden');
-        }
+            if (finalImages.length === 0) {
+                // Fallback default image if none provided
+                finalImages.push('https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=800&auto=format&fit=crop');
+            }
 
-        function closeProductModal() {
-            document.getElementById('admin-product-modal').classList.add('hidden');
-        }
-
-        function handleProductSave(event) {
-            event.preventDefault();
-            const editId = document.getElementById('product-edit-id').value;
-            const name = document.getElementById('prod-name').value.trim();
-            const category = document.getElementById('prod-category').value.trim();
-            const price = parseFloat(document.getElementById('prod-price').value);
-            const stock = parseInt(document.getElementById('prod-stock').value);
-            const description = document.getElementById('prod-desc').value.trim();
-            const fileInput = document.getElementById('prod-images-input');
-
-            const processSave = (imagesArray) => {
-                if(editId) {
-                    // Update existing
-                    const p = products.find(item => item.id === editId);
-                    if(p) {
-                        p.name = name;
-                        p.category = category;
-                        p.price = price;
-                        p.stock = stock;
-                        p.description = description;
-                        if(imagesArray && imagesArray.length > 0) {
-                            p.images = imagesArray;
-                        }
-                    }
-                    showToast('Produk berhasil diperbarui.');
-                } else {
-                    // Add new
-                    const newProd = {
-                        id: 'prod-' + Date.now(),
+            if (id) {
+                // Update Existing
+                const idx = products.findIndex(p => p.id === id);
+                if (idx > -1) {
+                    products[idx] = {
+                        ...products[idx],
                         name,
                         category,
                         price,
-                        stock,
                         description,
-                        images: imagesArray.length > 0 ? imagesArray : ['https://placehold.co/400x400/f5d3cf/8c4535?text=Affaiya']
+                        images: finalImages
                     };
-                    products.push(newProd);
-                    showToast('Produk baru berhasil ditambahkan.');
+                    showToast('Produk berhasil diperbarui!');
                 }
-
-                saveData();
-                closeProductModal();
-                renderAdminProducts();
-                renderHomeProducts();
-                renderKoleksiProducts();
-            };
-
-            if(fileInput.files && fileInput.files.length > 0) {
-                let loadedImages = [];
-                let filesProcessed = 0;
-
-                Array.from(fileInput.files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        loadedImages.push(e.target.result);
-                        filesProcessed++;
-                        if(filesProcessed === fileInput.files.length) {
-                            processSave(loadedImages);
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                });
             } else {
-                if(editId) {
-                    const p = products.find(item => item.id === editId);
-                    processSave(p ? p.images : []);
-                } else {
-                    processSave([]);
-                }
+                // Create New
+                const newProd = {
+                    id: 'prod-' + Date.now(),
+                    name,
+                    category,
+                    price,
+                    description,
+                    images: finalImages,
+                    sizes: [36, 37, 38, 39, 40, 41]
+                };
+                products.push(newProd);
+                showToast('Produk baru berhasil ditambahkan!');
             }
+
+            saveData();
+            renderAdminProducts();
+            renderHomeCarouselProducts();
+            renderKoleksiProducts();
+            closeAdminProductModal();
         }
 
-        function deleteProduct(id) {
-            if(confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
-                products = products.filter(p => p.id !== id);
+        function deleteProduct(prodId) {
+            if (confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
+                products = products.filter(p => p.id !== prodId);
                 saveData();
                 renderAdminProducts();
-                renderHomeProducts();
+                renderHomeCarouselProducts();
                 renderKoleksiProducts();
                 showToast('Produk berhasil dihapus.');
             }
         }
 
+        // Admin CRUD Users
         function renderAdminUsers() {
-            const tbody = document.getElementById('admin-user-table-body');
-            tbody.innerHTML = users.map(u => {
-                const avatarHtml = u.avatar 
-                    ? `<img src="${u.avatar}" class="w-10 h-10 rounded-full object-cover">`
-                    : `<div class="w-10 h-10 rounded-full bg-brand-700 text-white flex items-center justify-center font-bold text-xs">${u.name.charAt(0)}</div>`;
+            const tbody = document.getElementById('adminUsersTableBody');
+            if (!tbody) return;
 
-                return `
-                    <tr class="border-b border-stone-100 hover:bg-stone-50 transition-all">
-                        <td class="p-4">${avatarHtml}</td>
-                        <td class="p-4 font-bold text-stone-900">${u.name}</td>
-                        <td class="p-4 text-stone-600">${u.username}</td>
-                        <td class="p-4">
-                            <span class="text-xs font-bold px-3 py-1 rounded-full ${u.role === 'admin' ? 'bg-amber-100 text-amber-800' : 'bg-brand-100 text-brand-800'}">${u.role.toUpperCase()}</span>
-                        </td>
-                        <td class="p-4 text-right space-x-2">
-                            <button onclick="openUserModal('edit', '${u.id}')" class="bg-stone-100 hover:bg-stone-200 text-stone-700 px-3 py-1.5 rounded-xl text-xs font-bold transition-all"><i class="fa-solid fa-pen"></i></button>
-                            ${u.role !== 'admin' ? `<button onclick="deleteUser('${u.id}')" class="bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-xl text-xs font-bold transition-all"><i class="fa-solid fa-trash"></i></button>` : ''}
-                        </td>
-                    </tr>
-                `;
-            }).join('');
+            tbody.innerHTML = users.map(u => `
+                <tr class="hover:bg-affaiya-50/50 transition">
+                    <td class="p-4 font-bold text-affaiya-900">${u.name}</td>
+                    <td class="p-4 text-affaiya-700">${u.email}</td>
+                    <td class="p-4 text-affaiya-700">${u.phone || '-'}</td>
+                    <td class="p-4">
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-full ${u.role === 'admin' ? 'bg-purple-100 text-purple-700' : 'bg-green-100 text-green-700'}">
+                            ${u.role.toUpperCase()}
+                        </span>
+                    </td>
+                    <td class="p-4 text-center">
+                        ${u.role !== 'admin' ? `
+                            <button onclick="deleteUserAccount('${u.id}')" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg text-xs" title="Hapus Akun">
+                                <i class="fa-solid fa-trash"></i> Hapus
+                            </button>
+                        ` : '<span class="text-xs text-affaiya-400 italic">Admin Utama</span>'}
+                    </td>
+                </tr>
+            `).join('');
         }
 
-        function openUserModal(mode, id = null) {
-            let modal = document.getElementById('admin-user-modal');
-            if(!modal) {
-                const modalDiv = document.createElement('div');
-                modalDiv.id = 'admin-user-modal';
-                modalDiv.className = 'fixed inset-0 z-50 bg-stone-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4';
-                modalDiv.innerHTML = `
-                    <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative">
-                        <button onclick="closeUserModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-700">
-                            <i class="fa-solid fa-xmark text-xl"></i>
-                        </button>
-                        <h2 id="admin-user-modal-title" class="text-2xl font-extrabold text-stone-900 mb-6">Manajemen Akun</h2>
-                        <form id="admin-user-form" onsubmit="handleUserSave(event)" class="space-y-4">
-                            <input type="hidden" id="user-edit-id">
-                            <div>
-                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Nama Lengkap</label>
-                                <input type="text" id="usr-name" required placeholder="Nama lengkap" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Username / Email</label>
-                                <input type="text" id="usr-username" required placeholder="Username unik" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Kata Sandi</label>
-                                <input type="text" id="usr-password" required placeholder="Kata sandi" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Role Akses</label>
-                                <select id="usr-role" class="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:border-brand-700">
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="w-full bg-brand-700 hover:bg-brand-800 text-white font-semibold py-3.5 rounded-xl shadow transition-all">Simpan Akun</button>
-                        </form>
-                    </div>
-                `;
-                document.body.appendChild(modalDiv);
-                modal = modalDiv;
-            }
-
-            const title = document.getElementById('admin-user-modal-title');
-            const form = document.getElementById('admin-user-form');
-            form.reset();
-            document.getElementById('user-edit-id').value = '';
-
-            if(mode === 'add') {
-                title.innerText = 'Tambah Akun Baru';
-            } else {
-                title.innerText = 'Edit Akun Pengguna';
-                const u = users.find(item => item.id === id);
-                if(u) {
-                    document.getElementById('user-edit-id').value = u.id;
-                    document.getElementById('usr-name').value = u.name;
-                    document.getElementById('usr-username').value = u.username;
-                    document.getElementById('usr-password').value = u.password;
-                    document.getElementById('usr-role').value = u.role;
-                }
-            }
-            modal.classList.remove('hidden');
-        }
-
-        function closeUserModal() {
-            const modal = document.getElementById('admin-user-modal');
-            if(modal) modal.classList.add('hidden');
-        }
-
-        function handleUserSave(event) {
-            event.preventDefault();
-            const editId = document.getElementById('user-edit-id').value;
-            const name = document.getElementById('usr-name').value.trim();
-            const username = document.getElementById('usr-username').value.trim();
-            const password = document.getElementById('usr-password').value.trim();
-            const role = document.getElementById('usr-role').value;
-
-            if(editId) {
-                const u = users.find(item => item.id === editId);
-                if(u) {
-                    u.name = name;
-                    u.username = username;
-                    u.password = password;
-                    u.role = role;
-                    saveData();
-                    closeUserModal();
-                    renderAdminUsers();
-                    showToast('Akun berhasil diperbarui.');
-                }
-            } else {
-                const existing = users.find(item => item.username === username);
-                if(existing) {
-                    showToast('Username/Email sudah terdaftar!', 'error');
-                    return;
-                }
-                const newUser = {
-                    id: 'user-' + Date.now(),
-                    name,
-                    username,
-                    password,
-                    role,
-                    avatar: ''
-                };
-                users.push(newUser);
-                saveData();
-                closeUserModal();
-                renderAdminUsers();
-                showToast('Akun baru berhasil ditambahkan.');
-            }
-        }
-
-        function deleteUser(id) {
-            if(confirm('Apakah Anda yakin ingin menghapus akun pengguna ini?')) {
-                users = users.filter(u => u.id !== id);
+        function deleteUserAccount(userId) {
+            if (confirm('Apakah Anda yakin ingin menghapus akun user ini?')) {
+                users = users.filter(u => u.id !== userId);
                 saveData();
                 renderAdminUsers();
-                showToast('Akun pengguna berhasil dihapus.');
+                showToast('Akun user telah dihapus.');
             }
         }
 
-        /* ==========================================
-           INITIALIZATION ON WINDOW LOAD
-           ========================================== */
-        window.onload = function() {
-            updateAuthNav();
-            initSlideshow();
-            startSlideshowInterval();
-            renderHomeProducts();
-            updateCartBadge();
-        };
+        // Toggle Mobile Menu Drawer
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
     </script>
 </body>
 </html>
