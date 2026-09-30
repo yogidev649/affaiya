@@ -61,7 +61,135 @@
             background: rgba(253, 251, 247, 0.85);
             backdrop-filter: blur(12px);
         }
+
+        /* Responsive / Mobile Friendly Enhancements */
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; }
+        img { max-width: 100%; }
+        button, input, select, textarea { max-width: 100%; }
+        .mobile-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+        @media (max-width: 767px) {
+            .wa-float-button {
+                right: 14px;
+                bottom: 14px;
+                width: 50px;
+                height: 50px;
+                padding: 0;
+                border-radius: 999px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .wa-float-button img { width: 42px; height: 42px; object-fit: contain; }
+
+            header .h-20 { height: 64px; }
+            header .font-serif.text-3xl { font-size: 1.35rem; }
+            header img[width="50"] { width: 38px; height: 38px; object-fit: contain; }
+            header .space-x-4 { gap: .25rem; }
+
+            /* Hero */
+            .hero-mobile { min-height: 390px !important; }
+            .hero-mobile-content { padding: 2.5rem 1.25rem !important; }
+
+            /* Prevent oversized headings and controls */
+            h1.text-4xl { font-size: 2rem; line-height: 1.15; }
+            h1.text-3xl { font-size: 1.75rem; line-height: 1.2; }
+            h2.text-3xl { font-size: 1.65rem; line-height: 1.2; }
+
+            /* Admin */
+            #page-admin .flex.flex-col.sm\:flex-row { gap: .75rem; }
+            #page-admin .flex.bg-affaiya-200 { width: 100%; overflow-x: auto; }
+            #page-admin .flex.bg-affaiya-200 button { flex: 1 0 auto; white-space: nowrap; min-height: 42px; }
+            #adminSectionProducts > div:first-child,
+            #adminSectionUsers > div:first-child {
+                flex-direction: column;
+                align-items: stretch;
+                gap: .75rem;
+            }
+            #adminSectionProducts > div:first-child button,
+            #adminSectionUsers > div:first-child button { width: 100%; justify-content: center; }
+
+            /* Tables remain usable with touch scrolling */
+            #adminSectionProducts .overflow-x-auto,
+            #adminSectionUsers .overflow-x-auto {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            #adminSectionProducts table,
+            #adminSectionUsers table { min-width: 720px; }
+            #adminSectionProducts th, #adminSectionProducts td,
+            #adminSectionUsers th, #adminSectionUsers td { padding: .7rem; }
+
+            /* Modals */
+            #productDetailModal, #authModal, #adminUserModal, #adminProductModal {
+                padding: .75rem;
+                align-items: flex-start;
+                overflow-y: auto;
+            }
+            #productDetailModal > div, #authModal > div, #adminUserModal > div, #adminProductModal > div {
+                width: 100%;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                max-height: calc(100vh - 4rem);
+                overflow-y: auto;
+            }
+            #productDetailModal > div { border-radius: 1rem; }
+            #productDetailModal .grid { gap: 1rem; }
+            #modalMainImg { height: 220px; }
+
+            /* Forms / buttons */
+            .flex.gap-2 > button { min-height: 42px; }
+            input, select, textarea { font-size: 16px !important; }
+
+            /* Footer */
+            footer .grid { gap: 2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .px-6 { padding-left: 1rem !important; padding-right: 1rem !important; }
+            .py-16 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+            .text-4xl { font-size: 1.9rem !important; }
+            .text-2xl { font-size: 1.35rem !important; }
+            .p-8 { padding: 1.25rem !important; }
+            .p-6 { padding: 1rem !important; }
+            .rounded-2xl { border-radius: 1rem; }
+            #cartDrawer { width: 100vw !important; }
+            #toastContainer { left: 12px; right: 12px; top: 74px; }
+            #toastContainer > * { max-width: none !important; width: 100%; }
+        }
+	.wa-float-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-align: center;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+	}
     </style>
+
+<style id="luxury-maroon-theme">
+:root{--lux-maroon:#6b1023;--lux-maroon-dark:#4b0716;--lux-maroon-deep:#35040f;--lux-maroon-soft:#f8eef0;--lux-gold:#b08a57;--lux-cream:#fffaf8;}
+body{background:#fffafa;color:#3b111b;}
+.bg-affaiya-50{background-color:#fffafa!important}.bg-affaiya-100{background-color:#f8eef0!important}.bg-affaiya-200{background-color:#ead5da!important}.bg-affaiya-300{background-color:#d8b8c0!important}.bg-affaiya-600{background-color:var(--lux-maroon)!important}.bg-affaiya-700{background-color:var(--lux-maroon-dark)!important}.bg-affaiya-800{background-color:var(--lux-maroon-deep)!important}.bg-affaiya-900{background-color:#28030b!important}
+.text-affaiya-500{color:#956476!important}.text-affaiya-600{color:var(--lux-maroon)!important}.text-affaiya-700{color:#681d2c!important}.text-affaiya-800{color:#4b0716!important}.text-affaiya-900{color:#35040f!important}
+.border-affaiya-100{border-color:#f1e1e4!important}.border-affaiya-200{border-color:#ead5da!important}.border-affaiya-300{border-color:#d8b8c0!important}.border-affaiya-600{border-color:var(--lux-maroon)!important}
+.hover\:bg-affaiya-50:hover{background-color:#fff5f6!important}.hover\:bg-affaiya-200:hover{background-color:#ead5da!important}.hover\:bg-affaiya-700:hover{background-color:var(--lux-maroon-dark)!important}
+header{background:rgba(255,255,255,.96)!important;border-bottom:1px solid #ead5da!important;box-shadow:0 4px 18px rgba(75,7,22,.06)}
+button.bg-affaiya-600,a.bg-affaiya-600{box-shadow:0 6px 16px rgba(107,16,35,.18)}
+.wa-float-button{filter:drop-shadow(0 5px 12px rgba(75,7,22,.2))}
+input:focus,textarea:focus,select:focus{border-color:var(--lux-maroon)!important;box-shadow:0 0 0 3px rgba(107,16,35,.08)}
+#page-admin .bg-affaiya-200{background:#f5e7e9!important}
+#page-admin .shadow-sm,.shadow-sm{box-shadow:0 5px 20px rgba(75,7,22,.06)!important}
+
+/* Luxury accents */
+.luxury-gold{color:var(--lux-gold)!important}.luxury-gold-border{border-color:var(--lux-gold)!important}
+</style>
 </head>
 <body class="min-h-screen flex flex-col justify-between relative selection:bg-affaiya-300 selection:text-affaiya-900">
 
@@ -129,10 +257,10 @@
             <div class="relative w-full overflow-hidden bg-affaiya-100">
                 <div id="heroCarouselSlides" class="flex transition-transform duration-700 ease-out">
                     <!-- Slide 1 -->
-                    <div class="w-full flex-shrink-0 relative min-h-[450px] lg:min-h-[580px] flex items-center">
+                    <div class="w-full flex-shrink-0 relative min-h-[450px] lg:min-h-[580px] flex items-center hero-mobile">
                         <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover object-center opacity-85" alt="Affaiya Collection 1">
                         <div class="absolute inset-0 bg-gradient-to-r from-affaiya-900/80 via-affaiya-900/40 to-transparent"></div>
-                        <div class="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 text-white max-w-xl">
+                        <div class="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 text-white max-w-xl hero-mobile-content">
                             <span class="text-affaiya-300 font-medium tracking-widest text-sm uppercase">Koleksi Terbaru 2026</span>
                             <h1 class="font-serif text-4xl lg:text-6xl font-bold my-4 leading-tight">Langkah Elegan Setiap Hari</h1>
                             <p class="text-affaiya-100 mb-8 text-sm sm:text-base">Didesain khusus untuk wanita modern yang mengutamakan kenyamanan ekstra tanpa mengorbankan estetika.</p>
@@ -534,7 +662,7 @@
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                     <div>
                         <span class="inline-block bg-affaiya-600 text-white text-xs font-bold px-2.5 py-1 rounded-md mb-1">PANEL ADMIN</span>
-                        <h1 class="font-serif text-3xl font-bold text-affaiya-900">Dashboard Pengelolaan Affaiya</h1>
+                        <h1 class="font-serif text-3xl sm:text-3xl font-bold text-affaiya-900">Dashboard Pengelolaan Affaiya</h1>
                     </div>
                     <!-- Admin Tab Switches -->
                     <div class="flex bg-affaiya-200 p-1 rounded-xl">
@@ -578,9 +706,12 @@
                 <div id="adminSectionUsers" class="space-y-6 hidden">
                     <div class="bg-white p-4 rounded-2xl border border-affaiya-200 shadow-sm flex justify-between items-center">
                         <div>
-                            <h2 class="font-bold text-lg text-affaiya-900">Daftar Akun User Terdaftar</h2>
-                            <p class="text-xs text-affaiya-500">*Admin tidak dapat menambah akun. Pendaftaran akun hanya bisa dilakukan oleh User sendiri.</p>
+                            <h2 class="font-bold text-lg text-affaiya-900">Manajemen Akun User</h2>
+                            <p class="text-xs text-affaiya-500">Admin dapat menambah, melihat, mengedit, dan menghapus akun user.</p>
                         </div>
+                        <button onclick="openAddUserModal()" class="bg-affaiya-600 hover:bg-affaiya-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+                            <i class="fa-solid fa-user-plus"></i> Tambah User
+                        </button>
                     </div>
 
                     <!-- Users Table -->
@@ -592,7 +723,7 @@
                                         <th class="p-4">Nama</th>
                                         <th class="p-4">Email</th>
                                         <th class="p-4">Nomor HP</th>
-                                        <th class="p-4">Role</th>
+                                        <th class="p-4">Role / Hak Akses</th>
                                         <th class="p-4 text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -658,7 +789,7 @@
             </div>
 
             <div class="border-t border-affaiya-800 mt-10 pt-6 text-center text-xs text-affaiya-300">
-                &copy; 2026 Brand Sandal Wanita **Affaiya**. All rights reserved.
+                &copy; 2026 Brand Affaiya. All rights reserved.
             </div>
         </div>
     </footer>
@@ -818,6 +949,48 @@
                 <button type="submit" class="w-full bg-affaiya-600 hover:bg-affaiya-700 text-white font-bold py-3 rounded-xl transition">
                     Daftar Akun User
                 </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN USER MODAL (ADD & EDIT) -->
+    <div id="adminUserModal" class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+            <button onclick="closeAdminUserModal()" class="absolute top-4 right-4 text-affaiya-400 hover:text-affaiya-800 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h2 id="adminUserModalTitle" class="font-serif text-2xl font-bold text-affaiya-900 mb-1">Tambah User Baru</h2>
+            <p class="text-xs text-affaiya-500 mb-5">Kelola identitas akun dan hak akses user.</p>
+
+            <form id="adminUserForm" onsubmit="handleSaveUser(event)" class="space-y-4">
+                <input type="hidden" id="adminUserId">
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Nama Lengkap</label>
+                    <input type="text" id="adminUserName" required class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Email</label>
+                    <input type="email" id="adminUserEmail" required class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Nomor HP / WhatsApp</label>
+                    <input type="tel" id="adminUserPhone" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Hak Akses</label>
+                    <select id="adminUserRole" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                        <option value="user">User — Belanja</option>
+                        <option value="admin">Admin — Kelola Produk & User</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-affaiya-800 mb-1">Password</label>
+                    <input type="password" id="adminUserPassword" placeholder="Kosongkan saat edit jika tidak diubah" class="w-full bg-affaiya-50 border border-affaiya-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-affaiya-600">
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeAdminUserModal()" class="w-1/2 bg-affaiya-100 hover:bg-affaiya-200 text-affaiya-800 font-bold py-2.5 rounded-xl transition text-xs">Batal</button>
+                    <button type="submit" class="w-1/2 bg-affaiya-600 hover:bg-affaiya-700 text-white font-bold py-2.5 rounded-xl transition text-xs">Simpan User</button>
+                </div>
             </form>
         </div>
     </div>
@@ -1715,32 +1888,170 @@
         }
 
         // Admin CRUD Users
+        function openAddUserModal() {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Akses admin diperlukan.', 'error');
+                return;
+            }
+            document.getElementById('adminUserModalTitle').innerText = 'Tambah User Baru';
+            document.getElementById('adminUserId').value = '';
+            document.getElementById('adminUserName').value = '';
+            document.getElementById('adminUserEmail').value = '';
+            document.getElementById('adminUserPhone').value = '';
+            document.getElementById('adminUserRole').value = 'user';
+            document.getElementById('adminUserPassword').value = '';
+            document.getElementById('adminUserPassword').required = true;
+            const modal = document.getElementById('adminUserModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function openEditUserModal(userId) {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Akses admin diperlukan.', 'error');
+                return;
+            }
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+
+            document.getElementById('adminUserModalTitle').innerText = 'Edit Akun User';
+            document.getElementById('adminUserId').value = user.id;
+            document.getElementById('adminUserName').value = user.name || '';
+            document.getElementById('adminUserEmail').value = user.email || '';
+            document.getElementById('adminUserPhone').value = user.phone || '';
+            document.getElementById('adminUserRole').value = user.role || 'user';
+            document.getElementById('adminUserPassword').value = '';
+            document.getElementById('adminUserPassword').required = false;
+
+            // Admin yang sedang login tidak boleh menurunkan hak akses dirinya sendiri.
+            const roleSelect = document.getElementById('adminUserRole');
+            if (user.id === currentUser.id) {
+                roleSelect.value = 'admin';
+                roleSelect.disabled = true;
+            } else {
+                roleSelect.disabled = false;
+            }
+
+            const modal = document.getElementById('adminUserModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeAdminUserModal() {
+            const modal = document.getElementById('adminUserModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('adminUserRole').disabled = false;
+        }
+
+        function handleSaveUser(e) {
+            e.preventDefault();
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Akses admin diperlukan.', 'error');
+                return;
+            }
+
+            const id = document.getElementById('adminUserId').value;
+            const name = document.getElementById('adminUserName').value.trim();
+            const email = document.getElementById('adminUserEmail').value.trim().toLowerCase();
+            const phone = document.getElementById('adminUserPhone').value.trim();
+            const roleSelect = document.getElementById('adminUserRole');
+            const role = roleSelect.value;
+            const passInput = document.getElementById('adminUserPassword').value;
+
+            if (!name || !email) {
+                showToast('Nama dan email wajib diisi.', 'error');
+                return;
+            }
+
+            const duplicate = users.find(u => u.email.toLowerCase() === email && u.id !== id);
+            if (duplicate) {
+                showToast('Email tersebut sudah digunakan akun lain.', 'error');
+                return;
+            }
+
+            if (id) {
+                const idx = users.findIndex(u => u.id === id);
+                if (idx === -1) return;
+
+                const oldUser = users[idx];
+                const newRole = oldUser.id === currentUser.id ? 'admin' : role;
+                users[idx] = {
+                    ...oldUser,
+                    name,
+                    email,
+                    phone,
+                    role: newRole,
+                    ...(passInput ? { pass: passInput } : {})
+                };
+
+                // Sinkronkan session bila admin mengedit data dirinya sendiri.
+                if (oldUser.id === currentUser.id) {
+                    currentUser = { ...users[idx] };
+                }
+                showToast('Akun user berhasil diperbarui!');
+            } else {
+                if (!passInput) {
+                    showToast('Password wajib diisi untuk user baru.', 'error');
+                    return;
+                }
+
+                users.push({
+                    id: 'usr-' + Date.now(),
+                    name,
+                    email,
+                    phone,
+                    role,
+                    pass: passInput
+                });
+                showToast('User baru berhasil ditambahkan!');
+            }
+
+            saveData();
+            renderAdminUsers();
+            renderUserMenu();
+            closeAdminUserModal();
+        }
+
         function renderAdminUsers() {
             const tbody = document.getElementById('adminUsersTableBody');
             if (!tbody) return;
 
-            tbody.innerHTML = users.map(u => `
-                <tr class="hover:bg-affaiya-50/50 transition">
-                    <td class="p-4 font-bold text-affaiya-900">${u.name}</td>
-                    <td class="p-4 text-affaiya-700">${u.email}</td>
-                    <td class="p-4 text-affaiya-700">${u.phone || '-'}</td>
-                    <td class="p-4">
-                        <span class="text-xs font-bold px-2.5 py-1 rounded-full ${u.role === 'admin' ? 'bg-purple-100 text-purple-700' : 'bg-green-100 text-green-700'}">
-                            ${u.role.toUpperCase()}
-                        </span>
-                    </td>
-                    <td class="p-4 text-center">
-                        ${u.role !== 'admin' ? `
-                            <button onclick="deleteUserAccount('${u.id}')" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg text-xs" title="Hapus Akun">
-                                <i class="fa-solid fa-trash"></i> Hapus
+            tbody.innerHTML = users.map(u => {
+                const isCurrent = currentUser && currentUser.id === u.id;
+                const isProtectedAdmin = u.id === 'usr-admin';
+                return `
+                    <tr class="hover:bg-affaiya-50/50 transition">
+                        <td class="p-4 font-bold text-affaiya-900">${u.name}</td>
+                        <td class="p-4 text-affaiya-700">${u.email}</td>
+                        <td class="p-4 text-affaiya-700">${u.phone || '-'}</td>
+                        <td class="p-4">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-full ${u.role === 'admin' ? 'bg-purple-100 text-purple-700' : 'bg-green-100 text-green-700'}">
+                                ${u.role === 'admin' ? 'ADMIN' : 'USER'}
+                            </span>
+                            ${isCurrent ? '<span class="ml-1 text-[10px] text-affaiya-500">(Anda)</span>' : ''}
+                        </td>
+                        <td class="p-4 text-center whitespace-nowrap space-x-1">
+                            <button onclick="openEditUserModal('${u.id}')" class="bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-lg text-xs" title="Edit Akun">
+                                <i class="fa-solid fa-pen"></i> Edit
                             </button>
-                        ` : '<span class="text-xs text-affaiya-400 italic">Admin Utama</span>'}
-                    </td>
-                </tr>
-            `).join('');
+                            ${!isCurrent && !isProtectedAdmin ? `
+                                <button onclick="deleteUserAccount('${u.id}')" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg text-xs" title="Hapus Akun">
+                                    <i class="fa-solid fa-trash"></i> Hapus
+                                </button>
+                            ` : '<span class="text-xs text-affaiya-400 italic">Dilindungi</span>'}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         function deleteUserAccount(userId) {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Akses admin diperlukan.', 'error');
+                return;
+            }
+            if (userId === currentUser.id || userId === 'usr-admin') {
+                showToast('Akun admin utama tidak dapat dihapus.', 'error');
+                return;
+            }
             if (confirm('Apakah Anda yakin ingin menghapus akun user ini?')) {
                 users = users.filter(u => u.id !== userId);
                 saveData();
@@ -1755,5 +2066,8 @@
             menu.classList.toggle('hidden');
         }
     </script>
+    <a href="https://wa.me/6283807068538" target="_blank" class="wa-float-button" aria-label="Chat WhatsApp">
+        <img src="wa.png" alt="Logo Whatsapp" width="50" height="50">
+    </a>
 </body>
 </html>
