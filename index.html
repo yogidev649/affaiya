@@ -1,7 +1,32 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-    <link rel="icon" type="image/png" href="logoaffaiya.png">
+    <link rel="icon" type="image/png" href="logoaffaiyabulat.png?v=3">
+    <style>
+        /* Favicon menggunakan logo AFFAIYA; browser akan menampilkannya sebagai ikon tab. */
+    
+<style>
+@media (max-width: 640px) {
+    .header-auth-button {
+        width: 34px !important;
+        height: 34px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 9999px !important;
+    }
+    .header-auth-button .header-auth-text {
+        display: none !important;
+    }
+    .header-auth-button .fa-user {
+        margin-right: 0 !important;
+        font-size: 13px !important;
+    }
+}
+</style>
+
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Affaiya - Sandal Wanita Modern & Elegan</title>
@@ -692,6 +717,51 @@ input:focus,textarea:focus,select:focus{border-color:var(--lux-maroon)!important
                             </div>
                         </div>
                     </div>
+
+                    <!-- 3 ULASAN USER TAMBAHAN -->
+                    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-2xl border border-affaiya-200 shadow-sm">
+                            <div class="flex text-yellow-400 mb-3 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-sm text-affaiya-800 italic mb-4">"Modelnya cantik dan nyaman dipakai sehari-hari. Bahannya juga terasa bagus, sesuai dengan foto di website."</p>
+                            <div class="flex items-center gap-3">
+                                <img src="avatar-user-1.svg" class="w-10 h-10 rounded-full object-cover" alt="Foto user Rina Maharani">
+                                <div>
+                                    <h4 class="font-bold text-sm text-affaiya-900">Rina Maharani</h4>
+                                    <span class="text-xs text-affaiya-500">Depok</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-affaiya-200 shadow-sm">
+                            <div class="flex text-yellow-400 mb-3 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-sm text-affaiya-800 italic mb-4">"Sandal datang cepat, packing aman dan rapih. Dipakai jalan cukup lama tetap nyaman di kaki. Suka banget sama modelnya."</p>
+                            <div class="flex items-center gap-3">
+                                <img src="avatar-user-2.svg" class="w-10 h-10 rounded-full object-cover" alt="Foto user Siti Aulia">
+                                <div>
+                                    <h4 class="font-bold text-sm text-affaiya-900">Siti Aulia</h4>
+                                    <span class="text-xs text-affaiya-500">Bekasi</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-affaiya-200 shadow-sm">
+                            <div class="flex text-yellow-400 mb-3 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-sm text-affaiya-800 italic mb-4">"Warnanya elegan dan gampang dipadukan dengan banyak outfit. Ukuran juga sesuai, jadi langsung pas saat pertama dipakai."</p>
+                            <div class="flex items-center gap-3">
+                                <img src="avatar-user-3.svg" class="w-10 h-10 rounded-full object-cover" alt="Foto user Nadia Permata">
+                                <div>
+                                    <h4 class="font-bold text-sm text-affaiya-900">Nadia Permata</h4>
+                                    <span class="text-xs text-affaiya-500">Tangerang</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1174,11 +1244,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--lux-maroon)!important
                 </div>
 
                 <!-- Preset info for testing -->
-                <div class="bg-affaiya-50 p-3 rounded-xl border border-affaiya-200 text-xs text-affaiya-700 space-y-1">
-                    <p class="font-bold text-affaiya-900"><i class="fa-solid fa-circle-info mr-1 text-affaiya-600"></i> Akun Bawaan Kredensial Admin:</p>
-                    <p>Email: <code class="bg-affaiya-200 px-1 rounded text-affaiya-900">admin@affaiya.com</code></p>
-                    <p>Pass: <code class="bg-affaiya-200 px-1 rounded text-affaiya-900">admin123</code></p>
-                </div>
 
                 <button type="submit" class="w-full bg-affaiya-600 hover:bg-affaiya-700 text-white font-bold py-3 rounded-xl transition">
                     Masuk Sekarang
@@ -1948,8 +2013,8 @@ window.addEventListener('error', function (e) {
                 `;
             } else {
                 container.innerHTML = `
-                    <button onclick="openAuthModal('login')" class="bg-affaiya-600 hover:bg-affaiya-700 text-white text-xs font-semibold px-4 py-2 rounded-full transition shadow-sm">
-                        <i class="fa-solid fa-user mr-1"></i> Masuk / Daftar
+                    <button onclick="openAuthModal('login')" aria-label="Masuk atau Daftar" title="Masuk / Daftar" class="bg-affaiya-600 hover:bg-affaiya-700 text-white text-xs font-semibold px-4 py-2 rounded-full transition shadow-sm header-auth-button">
+                        <i class="fa-solid fa-user mr-1"></i><span class="header-auth-text">Masuk / Daftar</span>
                     </button>
                 `;
             }
